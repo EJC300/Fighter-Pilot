@@ -1,0 +1,335 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "FighterPilot|Editor.Windows.Debug|x64",
+			"group": {
+				"kind": "build",
+				"isDefault": false
+			},
+			"command": "..\\..\\..\\..\\..\\..\\..\\..\\Program Files (x86)\\Flax\\Flax_1.11\\Binaries\\Tools\\Flax.Build",
+			"args": [
+				"-build",
+				"-log",
+				"-mutex",
+				"\\\"-workspace=C:\\Users\\Edward\\Documents\\Gamedev\\10DayJetJam\\FighterPilot\\Fighter-Pilot\\FighterPilot\\\"",
+				"-arch=x64",
+				"-configuration=Debug",
+				"-platform=Windows",
+				"-buildTargets=GameEditorTarget"
+			],
+			"type": "shell",
+			"options": {
+				"cwd": "C:\\Users\\Edward\\Documents\\Gamedev\\10DayJetJam\\FighterPilot\\Fighter-Pilot\\FighterPilot"
+			}
+		},
+		{
+			"label": "FighterPilot|Editor.Windows.Debug|ARM64",
+			"group": {
+				"kind": "build",
+				"isDefault": false
+			},
+			"command": "..\\..\\..\\..\\..\\..\\..\\..\\Program Files (x86)\\Flax\\Flax_1.11\\Binaries\\Tools\\Flax.Build",
+			"args": [
+				"-build",
+				"-log",
+				"-mutex",
+				"\\\"-workspace=C:\\Users\\Edward\\Documents\\Gamedev\\10DayJetJam\\FighterPilot\\Fighter-Pilot\\FighterPilot\\\"",
+				"-arch=ARM64",
+				"-configuration=Debug",
+				"-platform=Windows",
+				"-buildTargets=GameEditorTarget"
+			],
+			"type": "shell",
+			"options": {
+				"cwd": "C:\\Users\\Edward\\Documents\\Gamedev\\10DayJetJam\\FighterPilot\\Fighter-Pilot\\FighterPilot"
+			}
+		},
+		{
+			"label": "FighterPilot|Editor.Windows.Development|x64",
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			},
+			"command": "..\\..\\..\\..\\..\\..\\..\\..\\Program Files (x86)\\Flax\\Flax_1.11\\Binaries\\Tools\\Flax.Build",
+			"args": [
+				"-build",
+				"-log",
+				"-mutex",
+				"\\\"-workspace=C:\\Users\\Edward\\Documents\\Gamedev\\10DayJetJam\\FighterPilot\\Fighter-Pilot\\FighterPilot\\\"",
+				"-arch=x64",
+				"-configuration=Development",
+				"-platform=Windows",
+				"-buildTargets=GameEditorTarget"
+			],
+			"type": "shell",
+			"options": {
+				"cwd": "C:\\Users\\Edward\\Documents\\Gamedev\\10DayJetJam\\FighterPilot\\Fighter-Pilot\\FighterPilot"
+			}
+		},
+		{
+			"label": "FighterPilot|Editor.Windows.Development|ARM64",
+			"group": {
+				"kind": "build",
+				"isDefault": false
+			},
+			"command": "..\\..\\..\\..\\..\\..\\..\\..\\Program Files (x86)\\Flax\\Flax_1.11\\Binaries\\Tools\\Flax.Build",
+			"args": [
+				"-build",
+				"-log",
+				"-mutex",
+				"\\\"-workspace=C:\\Users\\Edward\\Documents\\Gamedev\\10DayJetJam\\FighterPilot\\Fighter-Pilot\\FighterPilot\\\"",
+				"-arch=ARM64",
+				"-configuration=Development",
+				"-platform=Windows",
+				"-buildTargets=GameEditorTarget"
+			],
+			"type": "shell",
+			"options": {
+				"cwd": "C:\\Users\\Edward\\Documents\\Gamedev\\10DayJetJam\\FighterPilot\\Fighter-Pilot\\FighterPilot"
+			}
+		},
+		{
+			"label": "FighterPilot|Editor.Windows.Release|x64",
+			"group": {
+				"kind": "build",
+				"isDefault": false
+			},
+			"command": "..\\..\\..\\..\\..\\..\\..\\..\\Program Files (x86)\\Flax\\Flax_1.11\\Binaries\\Tools\\Flax.Build",
+			"args": [
+				"-build",
+				"-log",
+				"-mutex",
+				"\\\"-workspace=C:\\Users\\Edward\\Documents\\Gamedev\\10DayJetJam\\FighterPilot\\Fighter-Pilot\\FighterPilot\\\"",
+				"-arch=x64",
+				"-configuration=Release",
+				"-platform=Windows",
+				"-buildTargets=GameEditorTarget"
+			],
+			"type": "shell",
+			"options": {
+				"cwd": "C:\\Users\\Edward\\Documents\\Gamedev\\10DayJetJam\\FighterPilot\\Fighter-Pilot\\FighterPilot"
+			}
+		},
+		{
+			"label": "FighterPilot|Editor.Windows.Release|ARM64",
+			"group": {
+				"kind": "build",
+				"isDefault": false
+			},
+			"command": "..\\..\\..\\..\\..\\..\\..\\..\\Program Files (x86)\\Flax\\Flax_1.11\\Binaries\\Tools\\Flax.Build",
+			"args": [
+				"-build",
+				"-log",
+				"-mutex",
+				"\\\"-workspace=C:\\Users\\Edward\\Documents\\Gamedev\\10DayJetJam\\FighterPilot\\Fighter-Pilot\\FighterPilot\\\"",
+				"-arch=ARM64",
+				"-configuration=Release",
+				"-platform=Windows",
+				"-buildTargets=GameEditorTarget"
+			],
+			"type": "shell",
+			"options": {
+				"cwd": "C:\\Users\\Edward\\Documents\\Gamedev\\10DayJetJam\\FighterPilot\\Fighter-Pilot\\FighterPilot"
+			}
+		},
+		{
+			"label": "FighterPilot|Game.Windows.Debug|x64",
+			"group": {
+				"kind": "build",
+				"isDefault": false
+			},
+			"command": "..\\..\\..\\..\\..\\..\\..\\..\\Program Files (x86)\\Flax\\Flax_1.11\\Binaries\\Tools\\Flax.Build",
+			"args": [
+				"-build",
+				"-log",
+				"-mutex",
+				"\\\"-workspace=C:\\Users\\Edward\\Documents\\Gamedev\\10DayJetJam\\FighterPilot\\Fighter-Pilot\\FighterPilot\\\"",
+				"-arch=x64",
+				"-configuration=Debug",
+				"-platform=Windows",
+				"-buildTargets=GameTarget"
+			],
+			"type": "shell",
+			"options": {
+				"cwd": "C:\\Users\\Edward\\Documents\\Gamedev\\10DayJetJam\\FighterPilot\\Fighter-Pilot\\FighterPilot"
+			}
+		},
+		{
+			"label": "FighterPilot|Game.Windows.Debug|Win32",
+			"group": {
+				"kind": "build",
+				"isDefault": false
+			},
+			"command": "..\\..\\..\\..\\..\\..\\..\\..\\Program Files (x86)\\Flax\\Flax_1.11\\Binaries\\Tools\\Flax.Build",
+			"args": [
+				"-build",
+				"-log",
+				"-mutex",
+				"\\\"-workspace=C:\\Users\\Edward\\Documents\\Gamedev\\10DayJetJam\\FighterPilot\\Fighter-Pilot\\FighterPilot\\\"",
+				"-arch=Win32",
+				"-configuration=Debug",
+				"-platform=Windows",
+				"-buildTargets=GameTarget"
+			],
+			"type": "shell",
+			"options": {
+				"cwd": "C:\\Users\\Edward\\Documents\\Gamedev\\10DayJetJam\\FighterPilot\\Fighter-Pilot\\FighterPilot"
+			}
+		},
+		{
+			"label": "FighterPilot|Game.Windows.Debug|ARM64",
+			"group": {
+				"kind": "build",
+				"isDefault": false
+			},
+			"command": "..\\..\\..\\..\\..\\..\\..\\..\\Program Files (x86)\\Flax\\Flax_1.11\\Binaries\\Tools\\Flax.Build",
+			"args": [
+				"-build",
+				"-log",
+				"-mutex",
+				"\\\"-workspace=C:\\Users\\Edward\\Documents\\Gamedev\\10DayJetJam\\FighterPilot\\Fighter-Pilot\\FighterPilot\\\"",
+				"-arch=ARM64",
+				"-configuration=Debug",
+				"-platform=Windows",
+				"-buildTargets=GameTarget"
+			],
+			"type": "shell",
+			"options": {
+				"cwd": "C:\\Users\\Edward\\Documents\\Gamedev\\10DayJetJam\\FighterPilot\\Fighter-Pilot\\FighterPilot"
+			}
+		},
+		{
+			"label": "FighterPilot|Game.Windows.Development|x64",
+			"group": {
+				"kind": "build",
+				"isDefault": false
+			},
+			"command": "..\\..\\..\\..\\..\\..\\..\\..\\Program Files (x86)\\Flax\\Flax_1.11\\Binaries\\Tools\\Flax.Build",
+			"args": [
+				"-build",
+				"-log",
+				"-mutex",
+				"\\\"-workspace=C:\\Users\\Edward\\Documents\\Gamedev\\10DayJetJam\\FighterPilot\\Fighter-Pilot\\FighterPilot\\\"",
+				"-arch=x64",
+				"-configuration=Development",
+				"-platform=Windows",
+				"-buildTargets=GameTarget"
+			],
+			"type": "shell",
+			"options": {
+				"cwd": "C:\\Users\\Edward\\Documents\\Gamedev\\10DayJetJam\\FighterPilot\\Fighter-Pilot\\FighterPilot"
+			}
+		},
+		{
+			"label": "FighterPilot|Game.Windows.Development|Win32",
+			"group": {
+				"kind": "build",
+				"isDefault": false
+			},
+			"command": "..\\..\\..\\..\\..\\..\\..\\..\\Program Files (x86)\\Flax\\Flax_1.11\\Binaries\\Tools\\Flax.Build",
+			"args": [
+				"-build",
+				"-log",
+				"-mutex",
+				"\\\"-workspace=C:\\Users\\Edward\\Documents\\Gamedev\\10DayJetJam\\FighterPilot\\Fighter-Pilot\\FighterPilot\\\"",
+				"-arch=Win32",
+				"-configuration=Development",
+				"-platform=Windows",
+				"-buildTargets=GameTarget"
+			],
+			"type": "shell",
+			"options": {
+				"cwd": "C:\\Users\\Edward\\Documents\\Gamedev\\10DayJetJam\\FighterPilot\\Fighter-Pilot\\FighterPilot"
+			}
+		},
+		{
+			"label": "FighterPilot|Game.Windows.Development|ARM64",
+			"group": {
+				"kind": "build",
+				"isDefault": false
+			},
+			"command": "..\\..\\..\\..\\..\\..\\..\\..\\Program Files (x86)\\Flax\\Flax_1.11\\Binaries\\Tools\\Flax.Build",
+			"args": [
+				"-build",
+				"-log",
+				"-mutex",
+				"\\\"-workspace=C:\\Users\\Edward\\Documents\\Gamedev\\10DayJetJam\\FighterPilot\\Fighter-Pilot\\FighterPilot\\\"",
+				"-arch=ARM64",
+				"-configuration=Development",
+				"-platform=Windows",
+				"-buildTargets=GameTarget"
+			],
+			"type": "shell",
+			"options": {
+				"cwd": "C:\\Users\\Edward\\Documents\\Gamedev\\10DayJetJam\\FighterPilot\\Fighter-Pilot\\FighterPilot"
+			}
+		},
+		{
+			"label": "FighterPilot|Game.Windows.Release|x64",
+			"group": {
+				"kind": "build",
+				"isDefault": false
+			},
+			"command": "..\\..\\..\\..\\..\\..\\..\\..\\Program Files (x86)\\Flax\\Flax_1.11\\Binaries\\Tools\\Flax.Build",
+			"args": [
+				"-build",
+				"-log",
+				"-mutex",
+				"\\\"-workspace=C:\\Users\\Edward\\Documents\\Gamedev\\10DayJetJam\\FighterPilot\\Fighter-Pilot\\FighterPilot\\\"",
+				"-arch=x64",
+				"-configuration=Release",
+				"-platform=Windows",
+				"-buildTargets=GameTarget"
+			],
+			"type": "shell",
+			"options": {
+				"cwd": "C:\\Users\\Edward\\Documents\\Gamedev\\10DayJetJam\\FighterPilot\\Fighter-Pilot\\FighterPilot"
+			}
+		},
+		{
+			"label": "FighterPilot|Game.Windows.Release|Win32",
+			"group": {
+				"kind": "build",
+				"isDefault": false
+			},
+			"command": "..\\..\\..\\..\\..\\..\\..\\..\\Program Files (x86)\\Flax\\Flax_1.11\\Binaries\\Tools\\Flax.Build",
+			"args": [
+				"-build",
+				"-log",
+				"-mutex",
+				"\\\"-workspace=C:\\Users\\Edward\\Documents\\Gamedev\\10DayJetJam\\FighterPilot\\Fighter-Pilot\\FighterPilot\\\"",
+				"-arch=Win32",
+				"-configuration=Release",
+				"-platform=Windows",
+				"-buildTargets=GameTarget"
+			],
+			"type": "shell",
+			"options": {
+				"cwd": "C:\\Users\\Edward\\Documents\\Gamedev\\10DayJetJam\\FighterPilot\\Fighter-Pilot\\FighterPilot"
+			}
+		},
+		{
+			"label": "FighterPilot|Game.Windows.Release|ARM64",
+			"group": {
+				"kind": "build",
+				"isDefault": false
+			},
+			"command": "..\\..\\..\\..\\..\\..\\..\\..\\Program Files (x86)\\Flax\\Flax_1.11\\Binaries\\Tools\\Flax.Build",
+			"args": [
+				"-build",
+				"-log",
+				"-mutex",
+				"\\\"-workspace=C:\\Users\\Edward\\Documents\\Gamedev\\10DayJetJam\\FighterPilot\\Fighter-Pilot\\FighterPilot\\\"",
+				"-arch=ARM64",
+				"-configuration=Release",
+				"-platform=Windows",
+				"-buildTargets=GameTarget"
+			],
+			"type": "shell",
+			"options": {
+				"cwd": "C:\\Users\\Edward\\Documents\\Gamedev\\10DayJetJam\\FighterPilot\\Fighter-Pilot\\FighterPilot"
+			}
+		}
+	]
+}
