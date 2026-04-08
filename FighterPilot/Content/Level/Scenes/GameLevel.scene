@@ -18,6 +18,12 @@
 			}
 		},
 		{
+			"ID": "2939038443ef4ec7d09f96ae62ce004b",
+			"TypeName": "Game.PlayerControls",
+			"ParentID": "653ef543461e715d0ba6f988dbf9c9c2",
+			"V": {}
+		},
+		{
 			"ID": "e92664894551e097418a18bf2a643f5e",
 			"TypeName": "FlaxEngine.DirectionalLight",
 			"ParentID": "653ef543461e715d0ba6f988dbf9c9c2",
@@ -101,25 +107,6 @@
 			"Name": "BoxCollider"
 		},
 		{
-			"ID": "905b02b54135c0c1c11966811f31fed4",
-			"TypeName": "FlaxEngine.Camera",
-			"ParentID": "653ef543461e715d0ba6f988dbf9c9c2",
-			"Name": "Camera",
-			"Transform": {
-				"Translation": {
-					"X": 0.0,
-					"Y": 1911.791015625,
-					"Z": -984.0855712890625
-				}
-			}
-		},
-		{
-			"ID": "f489776e4a0213e7cfd90292234ff506",
-			"TypeName": "FlaxEngine.AudioListener",
-			"ParentID": "905b02b54135c0c1c11966811f31fed4",
-			"Name": "Audio Listener"
-		},
-		{
 			"ID": "5e412e4f4e6e7ea99cdc27a90f4d8b4a",
 			"TypeName": "FlaxEngine.RigidBody",
 			"ParentID": "653ef543461e715d0ba6f988dbf9c9c2",
@@ -140,10 +127,15 @@
 			"ParentID": "5e412e4f4e6e7ea99cdc27a90f4d8b4a",
 			"V": {
 	"CdForward": 0.001,
-	"CdRight": 0.05,
-	"CdUp": 0.08,
-	"Cl": 1.0,
-	"TotalThrustInPounds": 3800.0
+	"CdRight": 0.005,
+	"CdUp": 0.0008,
+	"Cl": 0.005,
+	"cID": 5.0,
+	"TotalThrust": 350.0,
+	"turnSpeed": 25.0,
+	"PitchPID": {},
+	"RollPID": {},
+	"YawPID": {}
 }
 		},
 		{
@@ -192,6 +184,25 @@
 				"Y": 309.9580078125,
 				"Z": 1203.3602294921875
 			}
+		},
+		{
+			"ID": "905b02b54135c0c1c11966811f31fed4",
+			"TypeName": "FlaxEngine.Camera",
+			"ParentID": "5e412e4f4e6e7ea99cdc27a90f4d8b4a",
+			"Name": "Camera",
+			"Transform": {
+				"Translation": {
+					"X": 0.0,
+					"Y": 0.0,
+					"Z": -874.7800903320313
+				}
+			}
+		},
+		{
+			"ID": "f489776e4a0213e7cfd90292234ff506",
+			"TypeName": "FlaxEngine.AudioListener",
+			"ParentID": "905b02b54135c0c1c11966811f31fed4",
+			"Name": "Audio Listener"
 		}
 	]
 }
