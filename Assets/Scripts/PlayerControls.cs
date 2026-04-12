@@ -75,11 +75,11 @@ public class PlayerControls : MonoBehaviour
         float roll = rollAction.ReadValue<float>();
         float yaw = yawAction.ReadValue<float>();
         float throttle = throttleAction.ReadValue<float>();
-
-          planeController.ApplyPitch(pitch);
-          planeController.ApplyRoll(roll);
-          planeController.ApplyYaw(yaw);
-          planeController.ApplyThrottle(throttle);
+      
+         planeController.ApplyPitch(pitch);
+         planeController.ApplyRoll(roll);
+         planeController.ApplyYaw(yaw);
+         planeController.ApplyThrottle(throttle);
     }
 
     // -------------------------------------------------------------------------

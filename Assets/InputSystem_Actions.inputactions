@@ -524,7 +524,7 @@
             "actions": [
                 {
                     "name": "Throttle",
-                    "type": "Value",
+                    "type": "PassThrough",
                     "id": "7c3aad10-5960-44cb-abbc-48ae4f3b6a05",
                     "expectedControlType": "",
                     "processors": "",
