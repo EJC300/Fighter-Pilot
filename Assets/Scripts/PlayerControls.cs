@@ -1,6 +1,7 @@
 using Plane;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Composites;
 
 public class PlayerControls : MonoBehaviour
 {
@@ -11,13 +12,13 @@ public class PlayerControls : MonoBehaviour
     // Private State
     private InputActionMap inputMap;
     private InputAction throttleAction;
-    private InputAction pitchAction;
-    private InputAction rollAction;
+    private InputAction rollPitchAxis;
     private InputAction yawAction;
     private InputAction fireMissileAction;
     private InputAction fireCannonAction;
     private InputAction selectTargetAction;
     private InputAction clearTargetAction;
+ 
 
     // -------------------------------------------------------------------------
     // Lifecycle
@@ -26,11 +27,10 @@ public class PlayerControls : MonoBehaviour
     private void OnEnable()
     {
         inputMap = inputActions.FindActionMap("Player");
-
-        throttleAction = inputMap.FindAction("Throttle");
-        pitchAction = inputMap.FindAction("Pitch");
-        rollAction = inputMap.FindAction("Roll");
         yawAction = inputMap.FindAction("Yaw");
+        throttleAction = inputMap.FindAction("Throttle");
+        
+        rollPitchAxis = inputMap.FindAction("PitchRoll");
         fireMissileAction = inputMap.FindAction("FireMissile");
         fireCannonAction = inputMap.FindAction("FireCannon");
         selectTargetAction = inputMap.FindAction("SelectTarget");
@@ -70,12 +70,11 @@ public class PlayerControls : MonoBehaviour
     private void HandleFlight()
     {
         if (planeController == null) return;
-
-        float pitch = pitchAction.ReadValue<float>();
-        float roll = rollAction.ReadValue<float>();
+        Vector2 rollPitch = rollPitchAxis.ReadValue<Vector2>();
+        float pitch = rollPitch.y;
+        float roll =  -rollPitch.x;
         float yaw = yawAction.ReadValue<float>();
         float throttle = throttleAction.ReadValue<float>();
-      
          planeController.ApplyPitch(pitch);
          planeController.ApplyRoll(roll);
          planeController.ApplyYaw(yaw);

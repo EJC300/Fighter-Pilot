@@ -1,5 +1,7 @@
-
+﻿
 using UnityEngine;
+using UnityEngine.VFX;
+using UnityEngine.Windows;
 
 namespace Plane
 {
@@ -10,13 +12,18 @@ namespace Plane
         // -------------------------------------------------------------------------
 
         public Rigidbody rb;
-
+        public PIDController yawPID;
+        public PIDController pitchPID;
+        public PIDController rollPID;
         // -------------------------------------------------------------------------
         // State
         // -------------------------------------------------------------------------
 
         [HideInInspector] public Vector3 planeVelocity;
         [HideInInspector] public Vector3 relativePlaneVelocity;
+        [HideInInspector] public float relativePitchVelocityPrev;
+        [HideInInspector] public float pitchAcceleration;
+
 
         // -------------------------------------------------------------------------
         // Drag
@@ -24,13 +31,20 @@ namespace Plane
 
         [Header("Drag")]
         public float CoefOfDrag;
-
-        public AnimationCurve atmoDragForward;
-        public AnimationCurve atmoDragBackward;
-        public AnimationCurve atmoDragLeft;
-        public AnimationCurve atmoDragRight;
-        public AnimationCurve atmoDragTop;
-        public AnimationCurve atmoDragDown;
+        public AnimationCurve dragCurve;
+       // public float CoefOfDragUp;
+      //  public float CoefOfDragDown;
+       // public float CoefOfDragLeft;
+       // public float CoefOfDragRight;
+       // public float CoefOfDragForward;
+       // public float CoefOfDragBackward;
+        public float CoefOfIDrag;
+        //public AnimationCurve atmoDragForward;
+      //  public AnimationCurve atmoDragBackward;
+      //  public AnimationCurve atmoDragLeft;
+      //  public AnimationCurve atmoDragRight;
+      //  public AnimationCurve atmoDragTop;
+      //  public AnimationCurve atmoDragDown;
         public AnimationCurve inducedDrag;
         // -------------------------------------------------------------------------
         // Lift
@@ -57,31 +71,49 @@ namespace Plane
 
         [Header("Controls")]
         public float pitchStrength;
+        public float pitchRate;
+        public float pitchInputStrength;
         public float yawStrength;
-
+        public float rollInputStrength;
+        public float rollStrength;
+        public float yawInputStrength;
+        
         // -------------------------------------------------------------------------
         // Lifecycle
         // -------------------------------------------------------------------------
 
         private void FixedUpdate()
         {
-            UpdateAircraftPhysicsState();
-            ApplyAtmosphericDrag();
+          
+           
             ApplyLiftOnWings();
             ApplyInducedDragOnWings();
-            ApplyLiftOnVerticalStabilizer();
-            ApplyNaturalYawStability();
+            ApplyAtmosphericDrag();
+          
+            UpdateAircraftPhysicsState();
         }
 
         // -------------------------------------------------------------------------
         // State
         // -------------------------------------------------------------------------
+        void TorqueByRate(float rate,Vector3 axis)
+        { 
+        
+           if (Mathf.Abs(rate) < 0) return;
+            Vector3 target = rate * axis;
+            Vector3 current = Vector3.Dot(axis, transform.InverseTransformDirection(rb.angularVelocity)) * axis;
+            Vector3 error = target - current;
+           
+            rb.AddRelativeTorque(target , ForceMode.Acceleration);
 
+        }
         void UpdateAircraftPhysicsState()
         {
             planeVelocity = rb.linearVelocity;
             relativePlaneVelocity = transform.InverseTransformDirection(planeVelocity);
+            ApplyNaturalYawStability();
             ApplyNaturalPitchStability();
+            ApplyNaturalRollStability();
         }
 
         // -------------------------------------------------------------------------
@@ -104,70 +136,43 @@ namespace Plane
 
         float CalculateLiftOnWings()
         {
-            Vector3 relativeVelocityOnWings = Vector3.Dot(relativePlaneVelocity, transform.forward) * transform.forward;
+            Vector3 velocity = relativePlaneVelocity;
+         
+            float aoa = aoaCurve.Evaluate(CalculateAngleOfAttack() * Mathf.Rad2Deg);
+            float liftAmount = 0.5f * velocity.sqrMagnitude * aoa * liftCoef;
 
-            float aoa = CalculateAngleOfAttack();
-            float liftCurveValue = aoaCurve.Evaluate(aoa + 0.5f * Mathf.Rad2Deg);
-            float velocitySquared = relativeVelocityOnWings.sqrMagnitude;
-            float liftOnWings = 0.5f * liftCoef * velocitySquared * liftCurveValue;
 
-            // TODO: Replace with proper induced drag formula
-            float inducedDrag = CalculateInducedDrag(liftOnWings);
 
-            return liftOnWings;
+
+            return liftAmount;
         }
-        float CalculateLiftOnVerticalStabilizer()
-        {
-            Vector3 relativeVelocityOnWings = Vector3.Dot(relativePlaneVelocity, transform.forward) * transform.forward;
-
-            float aoa = CalculateAngleOfAttackYaw();
-            float liftCurveValue = aoaYawCurve.Evaluate(aoa * Mathf.Rad2Deg);
-            float velocitySquared = relativeVelocityOnWings.sqrMagnitude;
-            float liftOnVerticalStabilizer = 0.5f * liftCoef * velocitySquared * liftCurveValue;
-
-            // TODO: Replace with proper induced drag formula
-          
-            return liftOnVerticalStabilizer;
-        }
+     
         float CalculateInducedDrag(float liftCoef)
         {
-            Vector3 relativeVelocityOnWings = Vector3.Dot(relativePlaneVelocity, transform.forward) * transform.forward;
+           
             float inducedDragCurve = inducedDrag.Evaluate(Mathf.Max(0, relativePlaneVelocity.z));
-            float liftSquared = liftCoef;
+            float v2 = relativePlaneVelocity.sqrMagnitude;
 
-            return liftSquared * inducedDragCurve;
+            return 0.5f * v2 * CoefOfIDrag * inducedDragCurve;
         }
         void ApplyInducedDragOnWings()
         {
       
-            Vector3 wingCross = Vector3.Cross(transform.forward, transform.right);
-            Vector3 liftDirection = Vector3.ProjectOnPlane((Vector3.up * CalculateLiftOnWings()).normalized, wingCross);
+           
             float inducedDrag = CalculateInducedDrag(CalculateLiftOnWings());
 
-            rb.AddForce(inducedDrag * relativePlaneVelocity.normalized);
+            rb.AddRelativeForce(inducedDrag * -relativePlaneVelocity.normalized);
 
 
         }
         void ApplyLiftOnWings()
         {
-            Vector3 relativeVelocityOnWings = Vector3.ProjectOnPlane(relativePlaneVelocity, transform.forward);
-            Vector3 wingCross = Vector3.Cross(relativeVelocityOnWings.normalized, transform.right);
-            Vector3 liftDirection = Vector3.ProjectOnPlane(relativeVelocityOnWings.normalized, wingCross);
-            float liftMagnitude = CalculateLiftOnWings();
-
-            Vector3 liftForce = liftMagnitude * liftDirection;
-            rb.AddForce(-liftForce);
+            Vector3 velocity = relativePlaneVelocity;
+            Vector3 liftDirection = Vector3.Cross(velocity, Vector3.right).normalized;
+            Vector3 lift = liftDirection * CalculateLiftOnWings();
+            rb.AddRelativeForce(lift);
         }
-        void ApplyLiftOnVerticalStabilizer()
-        {
-            Vector3 relativeVelocityOnVerticalStabilizer = Vector3.ProjectOnPlane(relativePlaneVelocity, transform.forward);
-            Vector3 verticalStabilizerCross = Vector3.Cross(relativeVelocityOnVerticalStabilizer.normalized, transform.forward);
-            Vector3 liftDirection = Vector3.ProjectOnPlane(relativeVelocityOnVerticalStabilizer.normalized, verticalStabilizerCross);
-            float liftMagnitude = CalculateLiftOnVerticalStabilizer();
 
-            Vector3 liftForce = -liftMagnitude * liftDirection;
-            rb.AddForce(liftForce);
-        }
 
         // -------------------------------------------------------------------------
         // Natural Pitch Stability
@@ -175,21 +180,58 @@ namespace Plane
 
         void ApplyNaturalPitchStability()
         {
+            Vector3 velocity = relativePlaneVelocity;
             float liftMagnitude = CalculateLiftOnWings();
-            float currentPitch = transform.InverseTransformDirection(rb.angularVelocity).x;
-            float targetPitch = Mathf.Atan2(-relativePlaneVelocity.y, relativePlaneVelocity.z);
-            float rotationError = currentPitch - targetPitch;
 
-            rb.AddRelativeTorque(transform.right * rotationError * pitchStrength * liftMagnitude * Time.fixedDeltaTime);
+            float currentPitch = transform.InverseTransformDirection(rb.angularVelocity).y;
+
+            float controlledPitch = transform.InverseTransformDirection(rb.angularVelocity).z;
+            float pressure = 0.5f * velocity.sqrMagnitude;
+            float pitchError = controlledPitch - currentPitch;
+            float controlAuthority = Mathf.Clamp01(pressure / velocity.z) * pitchError;
+
+            controlAuthority = Mathf.Clamp(controlAuthority, -pitchStrength, pitchStrength);
+            if (Mathf.Abs(pressure) > 0.0f)
+            {
+                TorqueByRate(controlAuthority, Vector3.right);
+            }
+        }
+        void ApplyNaturalRollStability()
+        {
+            Vector3 velocity = relativePlaneVelocity;
+            float liftMagnitude = CalculateLiftOnWings();
+
+            float currentRoll = transform.InverseTransformDirection(rb.angularVelocity).z;
+
+            float controlledRoll = transform.InverseTransformDirection(rb.angularVelocity).y;
+            float pressure = 0.5f * velocity.sqrMagnitude;
+            float rollError = controlledRoll - currentRoll;
+            float controlAuthority = Mathf.Clamp01(pressure / velocity.z) * rollError;
+
+            controlAuthority = Mathf.Clamp(controlAuthority, -rollStrength, rollStrength);
+            if (Mathf.Abs(pressure) > 0.0f)
+            {
+                TorqueByRate(controlAuthority, Vector3.forward);
+            }
         }
         void ApplyNaturalYawStability()
         {
-            float yawLift = CalculateLiftOnVerticalStabilizer();
-            float currentYaw = transform.InverseTransformDirection(rb.angularVelocity).y;
-            float targetYaw = Mathf.Atan2(-relativePlaneVelocity.x, relativePlaneVelocity.z);
-            float rotationError = currentYaw - targetYaw;
 
-            rb.AddRelativeTorque(transform.up * rotationError * pitchStrength * yawLift* Time.fixedDeltaTime);
+            Vector3 velocity = relativePlaneVelocity;
+            float liftMagnitude = CalculateLiftOnWings();
+
+            float currentYaw = transform.InverseTransformDirection(rb.angularVelocity).y;
+
+            float controlledYaw = transform.InverseTransformDirection(rb.angularVelocity).z;
+            float pressure = 0.5f * velocity.sqrMagnitude;
+            float yawError = controlledYaw - currentYaw;
+            float controlAuthority = Mathf.Clamp01(pressure / velocity.z) * yawError;
+
+            controlAuthority = Mathf.Clamp(controlAuthority, -yawStrength, yawStrength);
+            if (Mathf.Abs(pressure) > 0.0f)
+            {
+                TorqueByRate(controlAuthority, -Vector3.up);
+            }
         }
         // -------------------------------------------------------------------------
         // Drag
@@ -197,26 +239,29 @@ namespace Plane
 
         void ApplyAtmosphericDrag()
         {
+            /*
             float speedForward = relativePlaneVelocity.z;
             float speedRight = relativePlaneVelocity.x;
             float speedUp = relativePlaneVelocity.y;
 
             float dragForward = speedForward > 0
-                ? atmoDragForward.Evaluate(speedForward) * CoefOfDrag
-                : -atmoDragBackward.Evaluate(speedForward) * CoefOfDrag;
+                ? -atmoDragForward.Evaluate(speedForward) * CoefOfDragForward
+                : atmoDragBackward.Evaluate(speedForward) * CoefOfDragBackward;
 
             float dragRight = speedRight > 0
-                ? atmoDragLeft.Evaluate(speedRight) * CoefOfDrag
-                : -atmoDragRight.Evaluate(speedRight) * CoefOfDrag;
+                ? -atmoDragLeft.Evaluate(speedRight) * CoefOfDragRight
+                : atmoDragRight.Evaluate(speedRight) * CoefOfDragLeft;
 
             float dragUp = speedUp > 0
-                ? atmoDragTop.Evaluate(speedUp) * CoefOfDrag
-                : -atmoDragDown.Evaluate(speedUp) * CoefOfDrag;
+                ? atmoDragTop.Evaluate(speedUp) * CoefOfDragUp
+                : atmoDragDown.Evaluate(speedUp) * CoefOfDragDown;
 
-            Vector3 dragForce = 0.5f * new Vector3(dragRight, dragUp, dragForward).sqrMagnitude
-                                * relativePlaneVelocity.normalized;
-
-            rb.AddForce(-dragForce);
+            */
+            float dragCoef = dragCurve.Evaluate(relativePlaneVelocity.magnitude) * CoefOfDrag;
+            Vector3 dragForce = 0.5f * relativePlaneVelocity.normalized * dragCoef *  relativePlaneVelocity.sqrMagnitude;
+                                
+            Debug.Log(dragForce.ToString());
+            rb.AddRelativeForce(-dragForce);
         }
 
         // -------------------------------------------------------------------------
@@ -226,21 +271,80 @@ namespace Plane
         public void ApplyThrottle(float input)
         {
             currentThrottle = Mathf.Clamp01(currentThrottle + input * throttleSpeed * Time.deltaTime);
-            rb.AddRelativeForce(Vector3.forward * currentThrottle * totalThrust);
+          
+            rb.AddRelativeForce( Vector3.forward * currentThrottle * totalThrust,ForceMode.Acceleration);
         }
 
         public void ApplyPitch(float input)
         {
-            //
+            Vector3 velocity = relativePlaneVelocity;
+
+
+            float currentPitchRate = transform.InverseTransformDirection(rb.angularVelocity).x;
+            float targetPitchRate = input * pitchInputStrength;
+            float pressure = 0.5f * velocity.sqrMagnitude;
+            float pitchError = input - currentPitchRate;
+            float controlAuthority = Mathf.Clamp01(pressure / velocity.z) * pitchError;
+
+
+            controlAuthority = Mathf.Clamp(controlAuthority, -pitchRate, pitchRate);
+            if (Mathf.Abs(pressure) > 0.0f)
+            {
+                float flyByWirePitch = pitchPID.CalculateResult(Time.fixedDeltaTime, controlAuthority, currentPitchRate);
+
+
+
+
+
+                TorqueByRate(flyByWirePitch, Vector3.right);
+            }
+
         }
+
+        
         public void ApplyRoll(float input)
         {
-            //
+            Vector3 velocity = relativePlaneVelocity;
+
+
+            float liftMagnitude = CalculateLiftOnWings();
+
+            float currentRoll = transform.InverseTransformDirection(rb.angularVelocity).z;
+
+            float controlledRoll = input * 5;
+            float pressure = 0.5f * velocity.sqrMagnitude;
+            float rollError = controlledRoll - currentRoll;
+            float controlAuthority = Mathf.Clamp01(pressure / velocity.z) * rollError;
+
+            controlAuthority = Mathf.Clamp(controlAuthority, -rollInputStrength, rollInputStrength);
+            if (Mathf.Abs(pressure) > 0.0f)
+            {
+                float flyByWireRoll = rollPID.CalculateResult(Time.fixedDeltaTime, controlAuthority, currentRoll);
+                //rb.AddRelativeTorque(Vector3.forward * controlAuthority * rollInputStrength,ForceMode.Acceleration);
+                TorqueByRate(flyByWireRoll, Vector3.forward);
+            }
         }
 
         public void ApplyYaw(float input)
         {
-            //
+            Vector3 velocity = relativePlaneVelocity;
+            
+            float liftMagnitude = CalculateLiftOnWings();
+
+            float currentYaw = transform.InverseTransformDirection(rb.angularVelocity).y;
+             
+            float controlledYaw = input * yawInputStrength;
+            float pressure = 0.5f * velocity.sqrMagnitude;
+            
+            float yawError = controlledYaw - currentYaw;
+            float controlAuthority = Mathf.Clamp( pressure / velocity.z,-yawError, yawError);
+
+           
+           
+            if (Mathf.Abs( pressure) > 0.0f)
+            {
+                TorqueByRate(controlAuthority, Vector3.up);
+            }
         }
     }
 }

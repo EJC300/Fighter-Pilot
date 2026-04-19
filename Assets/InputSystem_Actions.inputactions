@@ -8,12 +8,12 @@
             "actions": [
                 {
                     "name": "Navigate",
-                    "type": "PassThrough",
+                    "type": "Value",
                     "id": "c95b2375-e6d9-4b88-9c4c-c5e76515df4b",
                     "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 },
                 {
                     "name": "Submit",
@@ -524,9 +524,9 @@
             "actions": [
                 {
                     "name": "Throttle",
-                    "type": "PassThrough",
+                    "type": "Value",
                     "id": "7c3aad10-5960-44cb-abbc-48ae4f3b6a05",
-                    "expectedControlType": "",
+                    "expectedControlType": "Axis",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
@@ -541,19 +541,10 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Roll",
-                    "type": "Value",
-                    "id": "e921183d-aa64-42e9-bb1f-2b82bf85c761",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
-                },
-                {
-                    "name": "Pitch",
+                    "name": "PitchRoll",
                     "type": "Value",
                     "id": "4bb56b6d-6d97-4ba1-975c-b84b9e7ae520",
-                    "expectedControlType": "",
+                    "expectedControlType": "Stick",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
@@ -597,68 +588,46 @@
             ],
             "bindings": [
                 {
-                    "name": "",
-                    "id": "d46a3af2-cc92-46c9-9603-8536c6e58b6d",
+                    "name": "YawAxis",
+                    "id": "e0808e9b-4ca8-4574-9a9d-ad4f51153751",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Yaw",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "44474232-e582-47be-be2d-c840ed194a4b",
                     "path": "<Gamepad>/leftTrigger",
-                    "interactions": "Press",
+                    "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Yaw",
                     "isComposite": false,
-                    "isPartOfComposite": false
+                    "isPartOfComposite": true
                 },
                 {
-                    "name": "",
-                    "id": "c6a53b6e-d1a3-44a2-b1e2-d4db2409f042",
+                    "name": "positive",
+                    "id": "bb49ff13-64d1-4d0b-9d02-1fa4d47727fe",
                     "path": "<Gamepad>/rightTrigger",
-                    "interactions": "Press",
+                    "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Yaw",
                     "isComposite": false,
-                    "isPartOfComposite": false
+                    "isPartOfComposite": true
                 },
                 {
                     "name": "",
-                    "id": "f3ac6682-c958-4997-8a51-933a9aa49d19",
-                    "path": "<Gamepad>/leftStick/left",
+                    "id": "b9459209-8fe4-4c4b-bb43-f6e42fa9c687",
+                    "path": "<Gamepad>/leftStick",
                     "interactions": "",
-                    "processors": "",
+                    "processors": "StickDeadzone",
                     "groups": "",
-                    "action": "Roll",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "fd964db8-f85c-4bcc-88c6-7804090fdbe8",
-                    "path": "<Gamepad>/leftStick/right",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Roll",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "e8d49683-168c-4ad4-8152-a0bdd68d3ab1",
-                    "path": "<Gamepad>/leftStick/up",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Pitch",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "91e1e55a-a07c-4ecd-af31-b74737d0cfa3",
-                    "path": "<Gamepad>/leftStick/down",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Pitch",
+                    "action": "PitchRoll",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -707,26 +676,37 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "",
-                    "id": "820a608d-6bc5-482e-b6ed-43762d2e966f",
-                    "path": "<Gamepad>/leftShoulder",
-                    "interactions": "Press",
+                    "name": "ThrottleAxis",
+                    "id": "b5d4ca6a-8285-4437-99a7-fceb59b47525",
+                    "path": "1DAxis",
+                    "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Throttle",
-                    "isComposite": false,
+                    "isComposite": true,
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "",
-                    "id": "facaa553-f5c0-4d86-98b2-fd2ee5d9ac91",
-                    "path": "<Gamepad>/rightShoulder",
-                    "interactions": "Press",
+                    "name": "negative",
+                    "id": "7cec55ca-0f30-4297-9646-1224feb01409",
+                    "path": "<Gamepad>/leftShoulder",
+                    "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Throttle",
                     "isComposite": false,
-                    "isPartOfComposite": false
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "Positive",
+                    "id": "bbd000dd-046b-4c3c-9671-944449e4bf2a",
+                    "path": "<Gamepad>/rightShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Throttle",
+                    "isComposite": false,
+                    "isPartOfComposite": true
                 }
             ]
         }
