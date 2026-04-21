@@ -294,9 +294,11 @@ namespace Plane
 
 
 
+                if (Mathf.Abs(flyByWirePitch) > 0.0f)
+                {
 
-
-                TorqueByRate(flyByWirePitch, Vector3.right);
+                    TorqueByRate(flyByWirePitch, Vector3.right);
+                }
             }
 
         }
@@ -339,12 +341,15 @@ namespace Plane
             float yawError = controlledYaw - currentYaw;
             float controlAuthority = Mathf.Clamp( pressure / velocity.z,-yawError, yawError);
 
-           
-           
-            if (Mathf.Abs( pressure) > 0.0f)
+            if (Mathf.Abs(pressure) > 0.0f)
             {
-                TorqueByRate(controlAuthority, Vector3.up);
+                float flyByWireYaw = yawPID.CalculateResult(Time.fixedDeltaTime, controlAuthority, currentYaw);
+
+
+
+                TorqueByRate(flyByWireYaw, Vector3.up);
             }
+            
         }
     }
 }
