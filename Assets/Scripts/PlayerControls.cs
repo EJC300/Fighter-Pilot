@@ -8,7 +8,7 @@ public class PlayerControls : MonoBehaviour
     [Header("References")]
     public InputActionAsset inputActions;
     public PlaneController planeController;
-
+    public Launcher missiles;
     // Private State
     private InputActionMap inputMap;
     private InputAction throttleAction;
@@ -87,12 +87,13 @@ public class PlayerControls : MonoBehaviour
 
     private void FireMissile()
     {
-        // TODO: Implement missile firing
+       
     }
 
     private void FireCannon()
     {
         // TODO: Implement cannon firing
+        missiles.FireMissile();
     }
 
     // -------------------------------------------------------------------------
@@ -107,5 +108,9 @@ public class PlayerControls : MonoBehaviour
     private void ClearTarget()
     {
         // TODO: Implement target clearing
+    }
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawSphere(transform.position, 10);
     }
 }

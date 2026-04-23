@@ -14,68 +14,93 @@ public class Missile : MonoBehaviour
     public PlaneController aircraftController;
     //Calculation of Target
     public float NavigationRate = 5;
-
+    public float maxFuelTime;
+    private float timer;
     Vector3 previousPosition;
-   public Vector3 TargetVector;
-    float previousUp;
-    float previousLeft;
-    float previousRoll;
+    public Vector3 TargetVector;
+    Vector3 targetVelocity;
+
     private void LateUpdate()
     {
         Seeker();
     }
     private void FixedUpdate()
     {
+        if (Mathf.Abs( targetVelocity.magnitude) < 0) return;
         ApplyThrottle();
         ApplyPitch();
         ApplyRoll();
         ApplyYaw();
+        
+    }
+    float Noise()
+    {
+        /*
+         * if angle is perp from target to target Vector LOSRate is zero
+         */
+        Vector3 cross = Vector3.Cross(transform.up, (transform.position - TargetVector)).normalized;
+
+        return Mathf.PerlinNoise1D( Vector3.Dot(targetTransform.right,cross));
+
     }
     void Seeker()
     {
         Vector3 reltativePosition = targetTransform.position - transform.position;
-        Vector3 targetVelocity = (reltativePosition - previousPosition) / Time.fixedDeltaTime ;
-        Vector3 relativeVelcity = targetVelocity - aircraftController.planeVelocity;
-        previousPosition = reltativePosition;
-        Vector3 LOSrate = Vector3.Cross(reltativePosition,relativeVelcity)/Vector3.Dot(reltativePosition,reltativePosition);
-
-        Vector3 targetVector = LOSrate * NavigationRate;
+        targetVelocity = ( previousPosition - targetTransform.position) / Time.fixedDeltaTime ;
+        Vector3 relativeVelcity =  targetVelocity - aircraftController.planeVelocity;
        
+        previousPosition = targetTransform.position;
+        Vector3 LOSrate = Vector3.Cross(relativeVelcity,reltativePosition)/Vector3.Dot(reltativePosition,reltativePosition);
+
+        Vector3 targetVector = LOSrate * (NavigationRate * Mathf.Abs( Noise())) * 2;
+        Debug.Log(Noise());
         TargetVector = targetVector;
     }
 
     void ApplyYaw()
     {
 
-        float left = Vector3.Dot(transform.up, TargetVector); 
-        float leftDelta = ( previousLeft - left)/Time.fixedDeltaTime;
-        aircraftController.ApplyYaw(leftDelta);
+        float left = -Vector3.Dot(transform.up, TargetVector);
+        
+        aircraftController.ApplyYaw(left);
 
-        previousLeft = left;
+       
     }
     void ApplyPitch()
     {
 
-        float up = Vector3.Dot(transform.right, TargetVector);
-        float upDelta = (previousUp - up) / Time.fixedDeltaTime;
-        aircraftController.ApplyPitch(upDelta);
+        float up = -Vector3.Dot(transform.right, TargetVector);
+        
+        
+        aircraftController.ApplyPitch(up);
 
-        previousUp = up;
+       
     }
     void ApplyRoll()
     {
         Vector3 direction = Vector3.Cross(TargetVector, transform.forward).normalized;
         float roll = Vector3.Dot(transform.forward, direction);
-        float rollDelta = (previousRoll - roll)/Time.fixedDeltaTime;
-        previousRoll = roll;
-        aircraftController.ApplyRoll(rollDelta);
+     
+       
+        aircraftController.ApplyRoll(roll);
     }
     void ApplyThrottle()
     {
+        timer += Time.deltaTime;
         float input = 1;
-   
+        if (timer >= maxFuelTime)
+        {
+            timer = maxFuelTime;
+            input = -1;
+           
+        }
 
-        aircraftController.ApplyThrottle(input);
+            aircraftController.ApplyThrottle(input);
+        
     }
-
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawCube(transform.position,new Vector3(10,10,10));
+    }
 }

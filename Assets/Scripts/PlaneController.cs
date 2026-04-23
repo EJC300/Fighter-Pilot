@@ -22,6 +22,11 @@ namespace Plane
         [HideInInspector] public Vector3 planeVelocity;
         [HideInInspector] public Vector3 relativePlaneVelocity;
         [HideInInspector] public float relativePitchVelocityPrev;
+        [HideInInspector] public Vector3 previousVelocity;
+      
+        [HideInInspector] public Vector3 thrust;
+        [HideInInspector] public Vector3 maxThrust;
+        [HideInInspector] public float previousThrottle;
         [HideInInspector] public float pitchAcceleration;
 
 
@@ -62,6 +67,7 @@ namespace Plane
         [Header("Thrust")]
         public float totalThrust;
         public float throttleSpeed;
+
 
         [HideInInspector] public float currentThrottle;
 
@@ -111,9 +117,12 @@ namespace Plane
         {
             planeVelocity = rb.linearVelocity;
             relativePlaneVelocity = transform.InverseTransformDirection(planeVelocity);
+          
             ApplyNaturalYawStability();
             ApplyNaturalPitchStability();
             ApplyNaturalRollStability();
+            rb.linearVelocity = rb.linearVelocity * WorldSettings.speedScale;
+            rb.angularVelocity = rb.angularVelocity * WorldSettings.turnScale;
         }
 
         // -------------------------------------------------------------------------
@@ -260,8 +269,13 @@ namespace Plane
             float dragCoef = dragCurve.Evaluate(relativePlaneVelocity.magnitude) * CoefOfDrag;
             Vector3 dragForce = 0.5f * relativePlaneVelocity.normalized * dragCoef *  relativePlaneVelocity.sqrMagnitude;
                                 
-            Debug.Log(dragForce.ToString());
-            rb.AddRelativeForce(-dragForce);
+            float speed =  relativePlaneVelocity.magnitude;
+            
+            float momentum = rb.mass * speed;
+
+            float dragScale = 1f/(1f +momentum * WorldSettings.speedScale * 0.2f);
+
+            rb.AddRelativeForce(-dragForce * dragScale,ForceMode.Impulse);
         }
 
         // -------------------------------------------------------------------------
@@ -271,8 +285,24 @@ namespace Plane
         public void ApplyThrottle(float input)
         {
             currentThrottle = Mathf.Clamp01(currentThrottle + input * throttleSpeed * Time.deltaTime);
-          
-            rb.AddRelativeForce( Vector3.forward * currentThrottle * totalThrust,ForceMode.Acceleration);
+
+            maxThrust = Vector3.forward * currentThrottle * totalThrust;
+            float momunetum = rb.mass * relativePlaneVelocity.magnitude;
+            float scale = 1 / (1 + momunetum * 0.01f);
+            Vector3 velocity = Vector3.zero;
+            thrust = Vector3.SmoothDamp(thrust, maxThrust, ref velocity, throttleSpeed * Time.fixedDeltaTime);
+        
+            if(currentThrottle > previousThrottle)
+            {
+                thrust = Vector3.SmoothDamp(thrust, maxThrust, ref velocity, throttleSpeed * Time.fixedDeltaTime);
+            }
+            else
+            {
+                thrust = Vector3.SmoothDamp(thrust, Vector3.forward * scale, ref velocity, momunetum * Time.fixedDeltaTime);
+            }
+                rb.AddRelativeForce(thrust, ForceMode.Acceleration);
+
+            previousThrottle = currentThrottle;
         }
 
         public void ApplyPitch(float input)
