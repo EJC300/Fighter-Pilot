@@ -613,7 +613,13 @@ MonoBehaviour:
   aircraftController: {fileID: 361549184965590851}
   NavigationRate: 5
   maxFuelTime: 0.3
+  ignitionTime: 5
+  ignitionTimer: 0
   TargetVector: {x: 0, y: 0, z: 0}
+  minImpactDistance: 50
+  maxImpactDistance: 200
+  blastRadius: 10
+  damageAmount: 50
 --- !u!96 &2707519942618179164
 TrailRenderer:
   serializedVersion: 4
@@ -1089,7 +1095,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.7128313, y: 0.7128313, z: 6.9250736}
+  m_LocalScale: {x: 0.14157543, y: 0.14157543, z: 1.3753889}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4084674583628226264}

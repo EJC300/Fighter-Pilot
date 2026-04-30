@@ -15,10 +15,17 @@ public class Missile : MonoBehaviour
     //Calculation of Target
     public float NavigationRate = 5;
     public float maxFuelTime;
+    public float ignitionTime;
+    public float ignitionTimer;
     private float timer;
     Vector3 previousPosition;
     public Vector3 TargetVector;
+    public float minImpactDistance;
+    public float maxImpactDistance;
+    public float blastRadius;
+    public float damageAmount;
     Vector3 targetVelocity;
+    
 
     private void LateUpdate()
     {
@@ -32,6 +39,12 @@ public class Missile : MonoBehaviour
         ApplyRoll();
         ApplyYaw();
         
+        if (Vector3.Distance(transform.position,targetTransform.position) < maxImpactDistance)
+        {
+      
+            ImpactAndDetonate();
+        }
+        
     }
     float Noise()
     {
@@ -43,6 +56,21 @@ public class Missile : MonoBehaviour
         return Mathf.PerlinNoise1D( Vector3.Dot(targetTransform.right,cross));
 
     }
+
+    void ImpactAndDetonate()
+    {
+        if(Physics.Raycast(new Ray(transform.position, transform.forward),out RaycastHit hit,minImpactDistance))
+        {
+           
+            if(Physics.SphereCast(hit.point,blastRadius,transform.forward,out hit))
+            {
+                //Apply Damage
+                Debug.Log("BOOM");
+            }
+            
+            Destroy(gameObject);
+        }
+    }
     void Seeker()
     {
         Vector3 reltativePosition = targetTransform.position - transform.position;
@@ -53,7 +81,7 @@ public class Missile : MonoBehaviour
         Vector3 LOSrate = Vector3.Cross(relativeVelcity,reltativePosition)/Vector3.Dot(reltativePosition,reltativePosition);
 
         Vector3 targetVector = LOSrate * (NavigationRate * Mathf.Abs( Noise())) * 2;
-        Debug.Log(Noise());
+    
         TargetVector = targetVector;
     }
 
@@ -84,15 +112,25 @@ public class Missile : MonoBehaviour
        
         aircraftController.ApplyRoll(roll);
     }
+    float input = 0;
     void ApplyThrottle()
     {
         timer += Time.deltaTime;
-        float input = 1;
+        ignitionTimer += Time.deltaTime;
+        if(ignitionTimer >= ignitionTime)
+        {
+            input = 1;
+        }
+        else
+        {
+            input = -1;
+        }
+
         if (timer >= maxFuelTime)
         {
             timer = maxFuelTime;
             input = -1;
-           
+
         }
 
             aircraftController.ApplyThrottle(input);

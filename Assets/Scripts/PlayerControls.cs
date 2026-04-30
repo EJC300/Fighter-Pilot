@@ -9,6 +9,7 @@ public class PlayerControls : MonoBehaviour
     public InputActionAsset inputActions;
     public PlaneController planeController;
     public Launcher missiles;
+    public GunCannon gunCannon;
     // Private State
     private InputActionMap inputMap;
     private InputAction throttleAction;
@@ -37,7 +38,7 @@ public class PlayerControls : MonoBehaviour
         clearTargetAction = inputMap.FindAction("ClearTarget");
 
         fireMissileAction.performed += _ => FireMissile();
-        fireCannonAction.performed += _ => FireCannon();
+        
         selectTargetAction.performed += _ => SelectTarget();
         clearTargetAction.performed += _ => ClearTarget();
 
@@ -47,7 +48,7 @@ public class PlayerControls : MonoBehaviour
     private void OnDisable()
     {
         fireMissileAction.performed -= _ => FireMissile();
-        fireCannonAction.performed -= _ => FireCannon();
+     
         selectTargetAction.performed -= _ => SelectTarget();
         clearTargetAction.performed -= _ => ClearTarget();
 
@@ -57,7 +58,10 @@ public class PlayerControls : MonoBehaviour
     // -------------------------------------------------------------------------
     // Update
     // -------------------------------------------------------------------------
-
+    private void Update()
+    {
+        FireCannon();
+    }
     private void FixedUpdate()
     {
         HandleFlight();
@@ -79,6 +83,7 @@ public class PlayerControls : MonoBehaviour
          planeController.ApplyRoll(roll);
          planeController.ApplyYaw(yaw);
          planeController.ApplyThrottle(throttle);
+       
     }
 
     // -------------------------------------------------------------------------
@@ -87,13 +92,17 @@ public class PlayerControls : MonoBehaviour
 
     private void FireMissile()
     {
-       
+        Debug.Log("Missile");
+        missiles.FireMissile();
     }
 
     private void FireCannon()
     {
-        // TODO: Implement cannon firing
-        missiles.FireMissile();
+        
+        if (fireCannonAction.IsPressed())
+        {
+            gunCannon.FireGuns();
+        }
     }
 
     // -------------------------------------------------------------------------

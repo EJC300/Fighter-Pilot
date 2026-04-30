@@ -1,3 +1,4 @@
+using Plane;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,6 +7,7 @@ using UnityEngine;
 public class Hardpoint
 {
     public bool hasFired;
+    public bool canFire;
 
     public float launchSpeed;
 
@@ -13,42 +15,68 @@ public class Hardpoint
 
     public Transform plane;
 
+    public PlaneController hostPlane;
+
     public Transform missilePrefab;
 
     private Missile missile;
+    private Rigidbody rb;
     //Handle seeker behavior
     public Transform target;
+  //Use object pooling??? Later??
     public void LaunchMissile()
     {
-
+        
         
         if (!hasFired)
         {
-            Vector3 dir = -(plane.transform.up + plane.forward) * launchSpeed;
-            missile = GameObject.Instantiate(missilePrefab, offset, plane.rotation).GetComponent<Missile>();
-            Vector3 lepTo = Vector3.Lerp(plane.transform.position, dir, Time.deltaTime * launchSpeed);
-          
+            
+            Vector3 dir = new Vector3(plane.position.x,plane.position.y,plane.position.z);
+            missile = GameObject.Instantiate(missilePrefab, dir, plane.rotation).GetComponent<Missile>();
+            
+            Rigidbody rbMissile = missile.GetComponent<Rigidbody>();
+
+            
+            Vector3 lepTo = Vector3.Lerp(plane.transform.position, plane.transform.position + offset, Time.deltaTime * launchSpeed);
+           
+
+
             missile.targetTransform = target;
             missile.transform.position = lepTo;
-            //hasFired = true; just for fun
+            rbMissile.linearVelocity = rb.linearVelocity;
+            hasFired = true;
         }
        
 
         
        
+    }
+
+    public void SetupMissile(GameObject obj)
+    {
+        rb = obj.GetComponent<Rigidbody>();
     }
 }
 public class Launcher : MonoBehaviour
 {
   public List<Hardpoint> hardPoint = new List<Hardpoint>();
-  
-  public  void FireMissile()
+    private int missileCount;
+    private void Start()
     {
+     
         for (int i = 0; i < hardPoint.Count; i++)
         {
-            hardPoint[i].LaunchMissile();
+            hardPoint[i].SetupMissile(gameObject);
         }
     }
+    public  void FireMissile()
+    {
+            missileCount = (missileCount + 1) % hardPoint.Count;
+            hardPoint[missileCount].LaunchMissile();
+        return;
+        
+    }
 
+  
 
 }
