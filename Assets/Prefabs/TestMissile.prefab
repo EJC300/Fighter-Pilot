@@ -444,16 +444,16 @@ MonoBehaviour:
     Kd: 0.025
     integralMin: -1
     integralMax: 1
-    minValue: -2
-    maxValue: 2
+    minValue: -5
+    maxValue: 5
   pitchPID:
     Kp: 10
     Ki: 0.5
     Kd: 0.25
     integralMin: -1
     integralMax: 1
-    minValue: -2
-    maxValue: 2
+    minValue: -5
+    maxValue: 5
   rollPID:
     Kp: 5
     Ki: 5
@@ -587,16 +587,17 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  totalThrust: 12850
+  totalThrust: 17850
   throttleSpeed: 0.01
+  thrustRatio: 1.2
   currentThrottle: 1
   pitchStrength: 1
   pitchRate: 1
-  pitchInputStrength: 4
+  pitchInputStrength: 5
   yawStrength: 0.1
-  rollInputStrength: 2
-  rollStrength: 1
-  yawInputStrength: 3
+  rollInputStrength: 15
+  rollStrength: 12
+  yawInputStrength: 5
 --- !u!114 &3726181695417300117
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -611,9 +612,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Missile
   targetTransform: {fileID: 0}
   aircraftController: {fileID: 361549184965590851}
-  NavigationRate: 5
+  NavigationRate: 4
   maxFuelTime: 0.3
-  ignitionTime: 5
+  ignitionTime: 50
   ignitionTimer: 0
   TargetVector: {x: 0, y: 0, z: 0}
   minImpactDistance: 50

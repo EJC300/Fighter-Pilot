@@ -38,11 +38,13 @@ public class Missile : MonoBehaviour
         ApplyPitch();
         ApplyRoll();
         ApplyYaw();
-        
-        if (Vector3.Distance(transform.position,targetTransform.position) < maxImpactDistance)
+        if (targetTransform != null)
         {
-      
-            ImpactAndDetonate();
+            if (Vector3.Distance(transform.position, targetTransform.position) < maxImpactDistance)
+            {
+
+                ImpactAndDetonate();
+            }
         }
         
     }
@@ -73,16 +75,21 @@ public class Missile : MonoBehaviour
     }
     void Seeker()
     {
-        Vector3 reltativePosition = targetTransform.position - transform.position;
-        targetVelocity = ( previousPosition - targetTransform.position) / Time.fixedDeltaTime ;
-        Vector3 relativeVelcity =  targetVelocity - aircraftController.planeVelocity;
-       
-        previousPosition = targetTransform.position;
-        Vector3 LOSrate = Vector3.Cross(relativeVelcity,reltativePosition)/Vector3.Dot(reltativePosition,reltativePosition);
 
-        Vector3 targetVector = LOSrate * (NavigationRate * Mathf.Abs( Noise())) * 2;
-    
-        TargetVector = targetVector;
+        if (targetTransform != null)
+        {
+
+            Vector3 reltativePosition = targetTransform.position - transform.position;
+            targetVelocity = (previousPosition - targetTransform.position) / Time.fixedDeltaTime;
+            Vector3 relativeVelcity = targetVelocity - aircraftController.planeVelocity;
+
+            previousPosition = targetTransform.position;
+            Vector3 LOSrate = Vector3.Cross(relativeVelcity, reltativePosition) / Vector3.Dot(reltativePosition, reltativePosition);
+
+            Vector3 targetVector = LOSrate * (NavigationRate * Mathf.Abs(Noise())) * 2;
+
+            TargetVector = targetVector;
+        }
     }
 
     void ApplyYaw()
@@ -106,8 +113,8 @@ public class Missile : MonoBehaviour
     }
     void ApplyRoll()
     {
-        Vector3 direction = Vector3.Cross(TargetVector, transform.forward).normalized;
-        float roll = Vector3.Dot(transform.forward, direction);
+        Vector3 direction = Vector3.Cross(transform.up, transform.right).normalized;
+        float roll = Vector3.Dot(TargetVector, direction);
      
        
         aircraftController.ApplyRoll(roll);
@@ -123,13 +130,13 @@ public class Missile : MonoBehaviour
         }
         else
         {
-            input = -1;
+            input = 0;
         }
 
         if (timer >= maxFuelTime)
         {
             timer = maxFuelTime;
-            input = -1;
+            input = 0;
 
         }
 

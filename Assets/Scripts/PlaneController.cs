@@ -67,6 +67,7 @@ namespace Plane
         [Header("Thrust")]
         public float totalThrust;
         public float throttleSpeed;
+        public float thrustRatio = 1.2f;
 
 
         [HideInInspector] public float currentThrottle;
@@ -110,7 +111,7 @@ namespace Plane
             Vector3 current = Vector3.Dot(axis, transform.InverseTransformDirection(rb.angularVelocity)) * axis;
             Vector3 error = target - current;
            
-            rb.AddRelativeTorque(target , ForceMode.Acceleration);
+            rb.AddRelativeTorque(target * rb.mass);
 
         }
         void UpdateAircraftPhysicsState()
@@ -275,7 +276,7 @@ namespace Plane
 
             float dragScale = 1f/(1f +momentum * WorldSettings.speedScale * 0.2f);
 
-            rb.AddRelativeForce(-dragForce * dragScale,ForceMode.Impulse);
+            rb.AddRelativeForce(-dragForce * dragScale);
         }
 
         // -------------------------------------------------------------------------
@@ -287,9 +288,10 @@ namespace Plane
             currentThrottle = Mathf.Clamp01(currentThrottle + input * throttleSpeed * Time.deltaTime);
 
             maxThrust = Vector3.forward * currentThrottle * totalThrust;
-            float momunetum = rb.mass * relativePlaneVelocity.magnitude;
-            float scale = 1 / (1 + momunetum * 0.01f);
+        
             Vector3 velocity = Vector3.zero;
+            /*    float momunetum = rb.mass * relativePlaneVelocity.magnitude;
+            float scale = 1 / (1 + momunetum * 0.01f);
             thrust = Vector3.SmoothDamp(thrust, maxThrust, ref velocity, throttleSpeed * Time.fixedDeltaTime);
         
             if(currentThrottle > previousThrottle)
@@ -298,11 +300,13 @@ namespace Plane
             }
             else
             {
-                thrust = Vector3.SmoothDamp(thrust, Vector3.forward * scale, ref velocity, momunetum * Time.fixedDeltaTime);
+                thrust = Vector3.SmoothDamp(thrust, Vector3.forward * scale, ref velocity, momunetum * Time.fixedDeltaTime) * rb.mass * thrustRatio;
             }
-                rb.AddRelativeForce(thrust, ForceMode.Acceleration);
+            */
+            thrust = maxThrust * rb.mass * thrustRatio;
+            rb.AddRelativeForce(thrust);
 
-            previousThrottle = currentThrottle;
+          
         }
 
         public void ApplyPitch(float input)

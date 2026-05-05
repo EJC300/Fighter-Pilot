@@ -19,12 +19,18 @@ public class PlayerControls : MonoBehaviour
     private InputAction fireCannonAction;
     private InputAction selectTargetAction;
     private InputAction clearTargetAction;
- 
+
 
     // -------------------------------------------------------------------------
     // Lifecycle
     // -------------------------------------------------------------------------
 
+
+
+    private void Start()
+    {
+        
+    }
     private void OnEnable()
     {
         inputMap = inputActions.FindActionMap("Player");
@@ -112,6 +118,11 @@ public class PlayerControls : MonoBehaviour
     private void SelectTarget()
     {
         // TODO: Implement target selection
+        if(planeController == null) return;
+    
+        EntityTargeting.instance.SelectTarget(transform);
+        missiles.target = EntityTargeting.instance.target;
+
     }
 
     private void ClearTarget()

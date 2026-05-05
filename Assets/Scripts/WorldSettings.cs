@@ -7,7 +7,7 @@ public class WorldSettings
 
     public static float speedScale = 0.4f;
 
-    public static float turnScale = 0.9f;
+    public static float turnScale = 1f;
 
 
 

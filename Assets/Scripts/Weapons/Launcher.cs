@@ -28,20 +28,21 @@ public class Hardpoint
     {
         
         
-        if (!hasFired)
+        if (!hasFired )
         {
             
-            Vector3 dir = new Vector3(plane.position.x,plane.position.y,plane.position.z);
-            missile = GameObject.Instantiate(missilePrefab, dir, plane.rotation).GetComponent<Missile>();
+            Vector3 dir = new Vector3(plane.position.x,plane.position.y,plane.position.z) + offset;
+            missile = GameObject.Instantiate(missilePrefab, offset, plane.rotation).GetComponent<Missile>();
             
             Rigidbody rbMissile = missile.GetComponent<Rigidbody>();
 
             
-            Vector3 lepTo = Vector3.Lerp(plane.transform.position, plane.transform.position + offset, Time.deltaTime * launchSpeed);
+            Vector3 lepTo = Vector3.Lerp(plane.transform.position, dir, Time.deltaTime * launchSpeed);
+
+
            
-
-
-            missile.targetTransform = target;
+                missile.targetTransform = target;
+            
             missile.transform.position = lepTo;
             rbMissile.linearVelocity = rb.linearVelocity;
             hasFired = true;
@@ -60,6 +61,7 @@ public class Hardpoint
 public class Launcher : MonoBehaviour
 {
   public List<Hardpoint> hardPoint = new List<Hardpoint>();
+    public Transform target;
     private int missileCount;
     private void Start()
     {
@@ -69,11 +71,19 @@ public class Launcher : MonoBehaviour
             hardPoint[i].SetupMissile(gameObject);
         }
     }
+    private void Update()
+    {
+        for (int i = 0; i < hardPoint.Count; i++)
+        {
+            hardPoint[i].target = target;
+        }
+    }
     public  void FireMissile()
     {
             missileCount = (missileCount + 1) % hardPoint.Count;
             hardPoint[missileCount].LaunchMissile();
-        return;
+          
+       
         
     }
 

@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Plane
   - Target
+  - Canvas
   layers:
   - Default
   - TransparentFX
