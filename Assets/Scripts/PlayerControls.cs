@@ -31,6 +31,8 @@ public class PlayerControls : MonoBehaviour
     {
         
     }
+    //Account for inverted controls.
+    
     private void OnEnable()
     {
         inputMap = inputActions.FindActionMap("Player");

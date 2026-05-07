@@ -308,7 +308,9 @@ namespace Plane
 
           
         }
-
+        //Plane goes down differently when banked.
+        //Fix the fucking drag for god sake.
+        
         public void ApplyPitch(float input)
         {
             Vector3 velocity = relativePlaneVelocity;

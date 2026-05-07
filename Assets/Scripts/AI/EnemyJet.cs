@@ -8,6 +8,7 @@ public enum EnemyState
     Attack,
     loiter
 }
+
 public class EnemyJet : MonoBehaviour
 {
     public float NavigationRate;
@@ -23,21 +24,39 @@ public class EnemyJet : MonoBehaviour
 
     private Vector3 previousTargetPosition;
 
-   public Transform targetTransform;
+    public Transform targetTransform;
 
-   public Vector3 TargetVector;
+    public Vector3 TargetVector;
 
     Vector3 previousTarget;
-    
 
+    public float maxFaceAngle;
+
+    public float RollPressure;
+
+    public float BreakPressure;
+
+    public float halfLoopPressure;
+
+    public float corkScrewPressure;
+
+    public float maxAbove;
+    bool InfrontOfPlayer;
+
+    bool NotLevelWithPlayer;
+
+    bool fromBehindOfPlayer;
+    float pressure;
+    bool canBreak;
+    float direction;
     private void Start()
     {
-       
-            player = GameObject.FindGameObjectWithTag("Player").transform;
-            playerAircraft = player.gameObject.GetComponent<PlaneController>();
 
-        
-        
+        player = GameObject.FindGameObjectWithTag("Player").transform;
+        playerAircraft = player.gameObject.GetComponent<PlaneController>();
+
+
+
     }
     private void LateUpdate()
     {
@@ -45,90 +64,124 @@ public class EnemyJet : MonoBehaviour
     }
     private void FixedUpdate()
     {
-      
+
         AdjustThrottleRelativeToTarget();
 
-        EvadeTarget();
-       //PursueTarget();
-       // AvoidTarget();
-        
-    }
-    void ApplyYaw()
-    {
-        Vector3 directionToTarget = -(targetTransform.position  - transform.position + TargetVector.normalized).normalized;
-        Vector3 direction = Vector3.Cross(transform.up, transform.forward);
-        float left = -Vector3.Dot(direction, TargetVector);
+        EvasionBrain();
 
-        aircraft.ApplyYaw(left);
-
-
-    }
+        EvadePlayer();
+        BreakLeftORRight();
+    } 
  
-    void PursueTarget()
-    {
-        Vector3 desiredDirection = (TargetVector + targetTransform.position - transform.position).normalized;
 
-       
-        Vector3 localDesired = transform.InverseTransformDirection(desiredDirection);
-
-  
-
-
-
-  
-        aircraft.ApplyRoll(Mathf.Clamp(-localDesired.x, -1f, 1f));
-        aircraft.ApplyPitch(Mathf.Clamp(-localDesired.y, -1f, 1f));
-
-      
-   
-   
-
-
-
-
-
-
-
-    }
     /*
      * 
-     * TODO : Have Aircraft Maneuvere by:
+     * TODO : Have Aircraft Maneuver by:
      * Deciding when to break left or right when in front of the player, Half Loop, Barrel roll , Corkscrew or give chase then lead
      * Awareness of the ground
      * Collision Avoidance Steering
      * Energy Awareness to avoid stalling and allowing to corner when chasing
      * Deciding when to fire missiles and when to use guns
      */
-    void EvadeTarget()
-    {
-        Vector3 desiredDirection = (targetTransform.position - transform.position ).normalized;
-     
-        //For now turn and break left 
-        float angle = Vector3.Dot(transform.up,Vector3.up);
-        bool infrontOFplayer =  Vector3.Dot(transform.right, desiredDirection) * Mathf.Rad2Deg < 45f && Mathf.Abs( Vector3.Dot(transform.forward, desiredDirection))* Mathf.Rad2Deg > 55f;
-        float currentAngle = transform.up.y;
-        Debug.Log(Vector3.Dot(transform.forward, desiredDirection) * Mathf.Rad2Deg);
-        if(infrontOFplayer)
-        {
-            aircraft.ApplyRoll(0.0f- angle);
-            if (angle >= 1)
-            {
-                Debug.Log(" In fRont");
-                //aircraft.ApplyPitch(-1);
 
+    void BreakLeftORRight()
+    {
+       
+
+        if (canBreak)
+        {
+     
+            float angle = Vector3.Angle(transform.up, Vector3.up);
+            Debug.Log(angle);
+            if ((angle) > 55)
+            {
+                aircraft.ApplyRoll(0);
+                aircraft.ApplyPitch(-1);
+            }
+            else
+            {
+                aircraft.ApplyRoll(1);
             }
         }
-      
-        else
+               
+        
+    }
+    void EvasionBrain()
+    {
+        Vector3 directionToTarget = (transform.position - targetTransform.position).normalized;
+        InfrontOfPlayer = Vector3.Angle(transform.forward, directionToTarget) > maxFaceAngle;
+        NotLevelWithPlayer = Mathf.Abs(transform.InverseTransformDirection(directionToTarget).y) >0.0f;
+        fromBehindOfPlayer = Vector3.Angle(directionToTarget,transform.forward) < maxFaceAngle;
+    }
+    void EvadePlayer()
+    {
+
+        if (InfrontOfPlayer)
         {
-            Debug.Log("No Longer In fRont");
-            aircraft.ApplyRoll(1f - angle);
+
+            //Increase Pressure
+            pressure = 0;
+            Debug.Log("Player Is in front of me");
+        }
+
+        else if (fromBehindOfPlayer)
+        {
+
+            //Decrease Pressure
+            pressure += Time.deltaTime * 10;
+            Debug.Log("Player Is in behind me");
+        }
+        if (NotLevelWithPlayer)
+        {   //DecreasePressure;
+
+            Debug.Log("Player Is either above me or below me");
+            pressure -= Time.deltaTime;
+        }
+        pressure = Mathf.Clamp(pressure, 0f, RollPressure + corkScrewPressure + halfLoopPressure + BreakPressure);
+        canBreak = pressure > BreakPressure && pressure < RollPressure;
+        if (pressure > BreakPressure && pressure < RollPressure)
+        {
+            Debug.Log("Break");
+            if (Random.value > 0.5f )
+            {
+                direction = 1;
+            }
+            else
+            {
+                direction = -1;
+            }
+         
+           
+        }
+
+        else if (pressure > RollPressure && pressure < halfLoopPressure)
+        {
+
+            Debug.Log("Roll");
+            return;
 
         }
+
+        else if (pressure > corkScrewPressure && pressure < halfLoopPressure)
+        {
+
+            Debug.Log("Corkscrew");
+            return;
+        }
+        else if (pressure > halfLoopPressure)
+        {
+
+            Debug.Log("HalfLoop");
+            return;
+        }
+        else
+        {
+            PursueTarget();
+        }
     }
-    void AvoidTarget()
+    void PursueTarget()
     {
-        Vector3 desiredDirection = ( transform.position - targetTransform.position + TargetVector).normalized;
+        Vector3 desiredDirection = (TargetVector + targetTransform.position - transform.position).normalized;
 
 
         Vector3 localDesired = transform.InverseTransformDirection(desiredDirection);
@@ -140,14 +193,23 @@ public class EnemyJet : MonoBehaviour
 
         aircraft.ApplyRoll(Mathf.Clamp(-localDesired.x, -1f, 1f));
         aircraft.ApplyPitch(Mathf.Clamp(-localDesired.y, -1f, 1f));
+
+
+
+
+
+
+
+
+
+
+
     }
     void AdjustThrottleRelativeToTarget()
     {
         Vector3 direction =  TargetVector -transform.position;
         float dot = Vector3.Dot(transform.forward, direction);
-
         float throttleInput = (direction.normalized - previousTarget).magnitude;
-        Debug.Log(throttleInput);
         aircraft.ApplyThrottle(throttleInput);
         previousTarget = direction.normalized;
     }
