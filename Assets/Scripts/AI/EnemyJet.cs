@@ -92,7 +92,7 @@ public class EnemyJet : MonoBehaviour
         {
      
             float angle = Vector3.Angle(transform.up, Vector3.up);
-            Debug.Log(angle);
+           
             if ((angle) > 55)
             {
                 aircraft.ApplyRoll(0);
@@ -100,7 +100,7 @@ public class EnemyJet : MonoBehaviour
             }
             else
             {
-                aircraft.ApplyRoll(1);
+                aircraft.ApplyRoll(-1);
             }
         }
                

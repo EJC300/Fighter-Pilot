@@ -2651,16 +2651,16 @@ MonoBehaviour:
     Kd: 0.025
     integralMin: -1
     integralMax: 1
-    minValue: -500
-    maxValue: 500
+    minValue: -5
+    maxValue: 5
   pitchPID:
     Kp: 10
     Ki: 0.5
     Kd: 0.25
     integralMin: -1
     integralMax: 1
-    minValue: -500
-    maxValue: 500
+    minValue: -5000
+    maxValue: 5000
   rollPID:
     Kp: 5
     Ki: 5
@@ -2669,6 +2669,7 @@ MonoBehaviour:
     integralMax: 25
     minValue: -500
     maxValue: 500
+  pitchLimit: 0
   planeVelocity: {x: -1681.7485, y: -41.15273, z: -39.046585}
   relativePlaneVelocity: {x: -7.4432487, y: 69.570656, z: 1681.25}
   relativePitchVelocityPrev: 0
@@ -2677,24 +2678,24 @@ MonoBehaviour:
   maxThrust: {x: 0, y: 0, z: 0}
   previousThrottle: 0
   pitchAcceleration: 0
-  CoefOfDrag: 10
+  CoefOfDrag: 500
   dragCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 25
       value: 0.25
-      inSlope: 0.004285714
-      outSlope: 0.004285714
+      inSlope: 0.0006517777
+      outSlope: 0.0006517777
       tangentMode: 34
       weightedMode: 0
       inWeight: 0
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 200
-      value: 1
-      inSlope: 0.004285714
-      outSlope: 0.004285714
+      time: 30.479462
+      value: 0.2535714
+      inSlope: 0.0006517777
+      outSlope: 0.0006517777
       tangentMode: 34
       weightedMode: 0
       inWeight: 0.33333334
@@ -2702,7 +2703,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  CoefOfIDrag: 20
+  CoefOfIDrag: 500
   inducedDrag:
     serializedVersion: 2
     m_Curve:
@@ -2727,7 +2728,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  liftCoef: 0.03
+  liftCoef: 120
   aoaCurve:
     serializedVersion: 2
     m_Curve:
@@ -2794,13 +2795,13 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  totalThrust: 5500
+  totalThrust: 55
   throttleSpeed: 0.07
   thrustRatio: 1.2
   currentThrottle: 1
-  pitchStrength: 1
-  pitchRate: 0.5
-  pitchInputStrength: 455
+  pitchStrength: 15
+  pitchRate: 25
+  pitchInputStrength: 50
   yawStrength: 0.1
   rollInputStrength: 455
   rollStrength: 1
@@ -3215,16 +3216,16 @@ MonoBehaviour:
     Kd: 0.025
     integralMin: -1
     integralMax: 1
-    minValue: -500
-    maxValue: 500
+    minValue: -5
+    maxValue: 5
   pitchPID:
     Kp: 10
     Ki: 0.5
     Kd: 0.25
     integralMin: -1
     integralMax: 1
-    minValue: -1000
-    maxValue: 1000
+    minValue: -5000
+    maxValue: 5000
   rollPID:
     Kp: 5
     Ki: 5
@@ -3233,6 +3234,7 @@ MonoBehaviour:
     integralMax: 25
     minValue: -500
     maxValue: 500
+  pitchLimit: 0
   planeVelocity: {x: -1681.7485, y: -41.15273, z: -39.046585}
   relativePlaneVelocity: {x: -7.4432487, y: 69.570656, z: 1681.25}
   relativePitchVelocityPrev: 0
@@ -3241,24 +3243,24 @@ MonoBehaviour:
   maxThrust: {x: 0, y: 0, z: 0}
   previousThrottle: 0
   pitchAcceleration: 0
-  CoefOfDrag: 10
+  CoefOfDrag: 500
   dragCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 25
       value: 0.25
-      inSlope: 0.004285714
-      outSlope: 0.004285714
+      inSlope: 0.0006517777
+      outSlope: 0.0006517777
       tangentMode: 34
       weightedMode: 0
       inWeight: 0
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 200
-      value: 1
-      inSlope: 0.004285714
-      outSlope: 0.004285714
+      time: 30.479462
+      value: 0.2535714
+      inSlope: 0.0006517777
+      outSlope: 0.0006517777
       tangentMode: 34
       weightedMode: 0
       inWeight: 0.33333334
@@ -3266,7 +3268,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  CoefOfIDrag: 20
+  CoefOfIDrag: 500
   inducedDrag:
     serializedVersion: 2
     m_Curve:
@@ -3291,7 +3293,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  liftCoef: 0.03
+  liftCoef: 120
   aoaCurve:
     serializedVersion: 2
     m_Curve:
@@ -3358,13 +3360,13 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  totalThrust: 5500
+  totalThrust: 55
   throttleSpeed: 0.07
   thrustRatio: 1.2
   currentThrottle: 1
-  pitchStrength: 1
-  pitchRate: 0.5
-  pitchInputStrength: 1000
+  pitchStrength: 15
+  pitchRate: 25
+  pitchInputStrength: 50
   yawStrength: 0.1
   rollInputStrength: 450
   rollStrength: 455

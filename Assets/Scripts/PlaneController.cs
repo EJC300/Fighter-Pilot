@@ -18,7 +18,7 @@ namespace Plane
         // -------------------------------------------------------------------------
         // State
         // -------------------------------------------------------------------------
-
+        public bool pitchLimit;
         [HideInInspector] public Vector3 planeVelocity;
         [HideInInspector] public Vector3 relativePlaneVelocity;
         [HideInInspector] public float relativePitchVelocityPrev;
@@ -68,7 +68,7 @@ namespace Plane
         public float totalThrust;
         public float throttleSpeed;
         public float thrustRatio = 1.2f;
-
+        private float acceleration;
 
         [HideInInspector] public float currentThrottle;
 
@@ -118,12 +118,15 @@ namespace Plane
         {
             planeVelocity = rb.linearVelocity;
             relativePlaneVelocity = transform.InverseTransformDirection(planeVelocity);
-          
+
             ApplyNaturalYawStability();
             ApplyNaturalPitchStability();
             ApplyNaturalRollStability();
-            rb.linearVelocity = rb.linearVelocity * WorldSettings.speedScale;
-            rb.angularVelocity = rb.angularVelocity * WorldSettings.turnScale;
+            if (relativePlaneVelocity.z> 5)
+            {
+                rb.linearVelocity = rb.linearVelocity * WorldSettings.speedScale;
+                rb.angularVelocity = rb.angularVelocity * WorldSettings.turnScale;
+            }
         }
 
         // -------------------------------------------------------------------------
@@ -180,7 +183,7 @@ namespace Plane
             Vector3 velocity = relativePlaneVelocity;
             Vector3 liftDirection = Vector3.Cross(velocity, Vector3.right).normalized;
             Vector3 lift = liftDirection * CalculateLiftOnWings();
-            rb.AddRelativeForce(lift);
+            rb.AddForce(lift);
         }
 
 
@@ -272,11 +275,11 @@ namespace Plane
                                 
             float speed =  relativePlaneVelocity.magnitude;
             
-            float momentum = rb.mass * speed;
+           
 
-            float dragScale = 1f/(1f +momentum * WorldSettings.speedScale * 0.2f);
+      
 
-            rb.AddRelativeForce(-dragForce * dragScale);
+            rb.AddRelativeForce(-dragForce);
         }
 
         // -------------------------------------------------------------------------
@@ -311,22 +314,38 @@ namespace Plane
         //Plane goes down differently when banked.
         //Fix the fucking drag for god sake.
         
+
+        public float CalculateEnergyLimit()
+        {
+            acceleration = relativePlaneVelocity.magnitude;
+            float gLoad = rb.angularVelocity.magnitude *relativePlaneVelocity.magnitude / Physics.gravity.magnitude;
+         
+            
+            previousVelocity = rb.linearVelocity;
+            return  Mathf.Abs(1 -( (gLoad / 10)) - Mathf.Clamp01((acceleration / 1500)));
+        }
         public void ApplyPitch(float input)
         {
             Vector3 velocity = relativePlaneVelocity;
 
 
             float currentPitchRate = transform.InverseTransformDirection(rb.angularVelocity).x;
-            float targetPitchRate = input * pitchInputStrength;
+            float lift = CalculateLiftOnWings();
+           
             float pressure = 0.5f * velocity.sqrMagnitude;
-            float pitchError = input - currentPitchRate;
+            input = Mathf.Clamp(input, -CalculateEnergyLimit(), CalculateEnergyLimit());
+            Debug.Log(input);
+            float pitchError = (input) - currentPitchRate;
+            
             float controlAuthority = Mathf.Clamp01(pressure / velocity.z) * pitchError;
 
 
-            controlAuthority = Mathf.Clamp(controlAuthority, -pitchRate, pitchRate);
+            controlAuthority = Mathf.Clamp(controlAuthority, -pitchRate, pitchRate) ;
+         
             if (Mathf.Abs(pressure) > 0.0f)
             {
                 float flyByWirePitch = pitchPID.CalculateResult(Time.fixedDeltaTime, controlAuthority, currentPitchRate);
+         
 
 
 
@@ -348,9 +367,9 @@ namespace Plane
             float liftMagnitude = CalculateLiftOnWings();
 
             float currentRoll = transform.InverseTransformDirection(rb.angularVelocity).z;
-
+            float lift = CalculateLiftOnWings();
             float controlledRoll = input * 5;
-            float pressure = 0.5f * velocity.sqrMagnitude;
+            float pressure = 0.5f * velocity.sqrMagnitude * lift;
             float rollError = controlledRoll - currentRoll;
             float controlAuthority = Mathf.Clamp01(pressure / velocity.z) * rollError;
 
