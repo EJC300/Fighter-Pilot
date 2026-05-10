@@ -601,11 +601,11 @@ Transform:
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.8, z: -12.82}
+  m_LocalPosition: {x: 0.000012516975, y: 3.1900024, z: -13.750116}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2090817609}
+  m_Father: {fileID: 1941038811}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &330585547
 MonoBehaviour:
@@ -2546,8 +2546,46 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d12860863e7588f45ad06b61d2c9058e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyJet
+  SinkPID:
+    Kp: 0.001
+    Ki: 0.1
+    Kd: 0.001
+    integralMin: -0.5
+    integralMax: 0.5
+    minValue: -0.01
+    maxValue: 0.01
+  PitchPID:
+    Kp: 1
+    Ki: 2
+    Kd: 5
+    integralMin: -1
+    integralMax: 1
+    minValue: -1
+    maxValue: 1
+  rollPID:
+    Kp: 0.1
+    Ki: 0.0001
+    Kd: 0.01
+    integralMin: -25
+    integralMax: 25
+    minValue: -1
+    maxValue: 1
+  yawPID:
+    Kp: 1
+    Ki: 0.001
+    Kd: 0.01
+    integralMin: -1
+    integralMax: 1
+    minValue: -1
+    maxValue: 1
   NavigationRate: 4
   aircraft: {fileID: 1941038809}
+  maxPitch: 5
+  maxYaw: 3
+  maxRoll: 8
+  PitchDamp: 2
+  RollDamp: 5
+  YawDamp: 0
   player: {fileID: 2090817609}
   targetTransform: {fileID: 2090817609}
   TargetVector: {x: 0, y: 0, z: 0}
@@ -2667,8 +2705,8 @@ MonoBehaviour:
     Kd: 0.01
     integralMin: -25
     integralMax: 25
-    minValue: -500
-    maxValue: 500
+    minValue: -50
+    maxValue: 50
   pitchLimit: 0
   planeVelocity: {x: -1681.7485, y: -41.15273, z: -39.046585}
   relativePlaneVelocity: {x: -7.4432487, y: 69.570656, z: 1681.25}
@@ -2795,17 +2833,17 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  totalThrust: 55
+  totalThrust: 35
   throttleSpeed: 0.07
   thrustRatio: 1.2
   currentThrottle: 1
   pitchStrength: 15
   pitchRate: 25
   pitchInputStrength: 50
-  yawStrength: 0.1
-  rollInputStrength: 455
-  rollStrength: 1
-  yawInputStrength: 455
+  yawStrength: 0.06
+  rollInputStrength: 400
+  rollStrength: 0
+  yawInputStrength: 0.25
 --- !u!54 &1941038810
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2841,15 +2879,16 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1941038802}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0.9989688, z: -0, w: -0.045403447}
-  m_LocalPosition: {x: 31.7, y: 157, z: -28.2}
+  m_LocalRotation: {x: -0, y: -0.7225894, z: -0, w: -0.69127756}
+  m_LocalPosition: {x: -272.5, y: 116.9, z: -63}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 475340912}
   - {fileID: 2145731850}
+  - {fileID: 330585546}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 534.795, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 452.537, z: 0}
 --- !u!1 &1965193637
 GameObject:
   m_ObjectHideFlags: 0
@@ -3172,6 +3211,7 @@ GameObject:
   - component: {fileID: 2090817613}
   - component: {fileID: 2090817614}
   - component: {fileID: 2090817615}
+  - component: {fileID: 2090817616}
   m_Layer: 0
   m_Name: Jet
   m_TagString: Player
@@ -3187,16 +3227,15 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2090817608}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0.9989688, z: -0, w: -0.045403447}
-  m_LocalPosition: {x: 29.14, y: 157, z: 0}
+  m_LocalRotation: {x: -0, y: -0.70740896, z: -0, w: -0.70680445}
+  m_LocalPosition: {x: 13.54, y: 157, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 330585546}
   - {fileID: 543450653150260623}
   - {fileID: 586104214}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 534.795, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 450.049, z: 0}
 --- !u!114 &2090817610
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3360,7 +3399,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  totalThrust: 55
+  totalThrust: 35
   throttleSpeed: 0.07
   thrustRatio: 1.2
   currentThrottle: 1
@@ -3369,7 +3408,7 @@ MonoBehaviour:
   pitchInputStrength: 50
   yawStrength: 0.1
   rollInputStrength: 450
-  rollStrength: 455
+  rollStrength: 45
   yawInputStrength: 45
 --- !u!54 &2090817611
 Rigidbody:
@@ -3489,6 +3528,24 @@ MonoBehaviour:
   bulletsPerSecond: 20000
   bulletPrefab: {fileID: 5776865321224483453, guid: f5f802d7d14040446a8e40660241e8fb, type: 3}
   muzzleOffset: {fileID: 586104214}
+--- !u!114 &2090817616
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2090817608}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba16efd408e92ab47b0dd0f8dca3b60f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Target
+  cameraCanvas: {fileID: 55550379}
+  player: {fileID: 2090817609}
+  targetDiamondBox: {fileID: 102899298951471655, guid: 23cfa2429effa3c43ae1124cd7a2d681, type: 3}
+  targetDiamondBoxInstance: {fileID: 0}
+  targetBox: {fileID: 2459638178516067519, guid: ff17418a346ab6440b92b460d7b1bc42, type: 3}
+  targetBoxInstance: {fileID: 0}
 --- !u!1 &2145731849
 GameObject:
   m_ObjectHideFlags: 0

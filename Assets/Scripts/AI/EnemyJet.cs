@@ -1,5 +1,6 @@
 using Plane;
 using UnityEngine;
+using UnityEngine.Windows;
 using static UnityEngine.GraphicsBuffer;
 public enum EnemyState
 {
@@ -11,9 +12,23 @@ public enum EnemyState
 
 public class EnemyJet : MonoBehaviour
 {
+    public PIDController SinkPID;
+    public PIDController PitchPID;
+    public PIDController rollPID;
+    public PIDController yawPID;
     public float NavigationRate;
     public PlaneController aircraft;
 
+    public float maxPitch;
+
+    public float maxYaw;
+
+    public float maxRoll;
+    public float PitchDamp;
+
+    public float RollDamp;
+
+    public float YawDamp;
     public Transform player;
 
     private PlaneController playerAircraft;
@@ -48,7 +63,9 @@ public class EnemyJet : MonoBehaviour
     bool fromBehindOfPlayer;
     float pressure;
     bool canBreak;
+    float previousSink;
     float direction;
+ 
     private void Start()
     {
 
@@ -60,19 +77,20 @@ public class EnemyJet : MonoBehaviour
     }
     private void LateUpdate()
     {
-        SolveForTargetPosition();
+     
+
     }
     private void FixedUpdate()
     {
-
+        SolveForTargetPosition();
         AdjustThrottleRelativeToTarget();
 
-        EvasionBrain();
+        //EvasionBrain();
+        Pursue();
+       // EvadePlayer();
+        //BreakLeftORRight();
+    }
 
-        EvadePlayer();
-        BreakLeftORRight();
-    } 
- 
 
     /*
      * 
@@ -83,7 +101,47 @@ public class EnemyJet : MonoBehaviour
      * Energy Awareness to avoid stalling and allowing to corner when chasing
      * Deciding when to fire missiles and when to use guns
      */
+  
+    void Pursue()
+    {
+    
+        Vector3 direction = transform.InverseTransformDirection(targetTransform.position - transform.position).normalized;
 
+
+        /*
+         float pitchRate = transform.InverseTransformDirection(aircraft.rb.angularVelocity).x;
+         float altitudeDiff = direction.y;
+         float sink =  ( SinkPID.CalculateResult(Time.fixedDeltaTime,aircraft.relativePlaneVelocity.y,altitudeDiff));
+
+         float error = direction.y - pitchRate;
+         float pitch = Mathf.Clamp( PitchPID.CalculateResult(Time.deltaTime,error, pitchRate * sink),-1,1);
+
+         float roll = rollPID.CalculateResult(Time.deltaTime, direction.x, transform.InverseTransformDirection(aircraft.rb.angularVelocity).z * sink);
+         float yaw = yawPID.CalculateResult(Time.deltaTime, direction.z, transform.InverseTransformDirection(aircraft.rb.angularVelocity).x);
+         */
+  
+     
+        float pitchRate = direction.y;
+        float currentPitchRate = transform.InverseTransformDirection(aircraft.rb.angularVelocity).y;
+        float correctedPitch =  (currentPitchRate) - (pitchRate - currentPitchRate * PitchDamp) ;
+
+
+
+        float desiredBank = direction.x * 180f;
+        float currentBank = Vector3.SignedAngle(transform.up, Vector3.up, transform.forward);
+        float bankError = currentBank- desiredBank;
+
+
+
+        aircraft.ApplyPitch(correctedPitch);
+        
+    
+       aircraft.ApplyRoll(Mathf.Clamp( bankError/180f, -1,1));
+
+       aircraft.ApplyYaw(direction.x);
+
+    
+    }
     void BreakLeftORRight()
     {
        
@@ -113,6 +171,7 @@ public class EnemyJet : MonoBehaviour
         NotLevelWithPlayer = Mathf.Abs(transform.InverseTransformDirection(directionToTarget).y) >0.0f;
         fromBehindOfPlayer = Vector3.Angle(directionToTarget,transform.forward) < maxFaceAngle;
     }
+    //Working on Pursue Only Evasion Is on Hold.
     void EvadePlayer()
     {
 
@@ -176,40 +235,15 @@ public class EnemyJet : MonoBehaviour
         }
         else
         {
-            PursueTarget();
+        
         }
     }
-    void PursueTarget()
-    {
-        Vector3 desiredDirection = (TargetVector + targetTransform.position - transform.position).normalized;
-
-
-        Vector3 localDesired = transform.InverseTransformDirection(desiredDirection);
-
-
-
-
-
-
-        aircraft.ApplyRoll(Mathf.Clamp(-localDesired.x, -1f, 1f));
-        aircraft.ApplyPitch(Mathf.Clamp(-localDesired.y, -1f, 1f));
-
-
-
-
-
-
-
-
-
-
-
-    }
+  
     void AdjustThrottleRelativeToTarget()
     {
         Vector3 direction =  TargetVector -transform.position;
-        float dot = Vector3.Dot(transform.forward, direction);
-        float throttleInput = (direction.normalized - previousTarget).magnitude;
+
+        float throttleInput = (direction.normalized).magnitude - previousTarget.magnitude ;
         aircraft.ApplyThrottle(throttleInput);
         previousTarget = direction.normalized;
     }
