@@ -330,7 +330,7 @@ namespace Plane
 
 
             float currentPitchRate = transform.InverseTransformDirection(rb.angularVelocity).x;
-            float lift = CalculateLiftOnWings();
+            
            
             float pressure = 0.5f * velocity.sqrMagnitude;
             input = Mathf.Clamp(input, -CalculateEnergyLimit(), CalculateEnergyLimit());

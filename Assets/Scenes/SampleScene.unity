@@ -17,17 +17,17 @@ RenderSettings:
   m_Fog: 1
   m_FogColor: {r: 0.49001217, g: 0.6273918, b: 0.9559748, a: 1}
   m_FogMode: 3
-  m_FogDensity: 0.001
+  m_FogDensity: 0
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
   m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
-  m_AmbientIntensity: 1
+  m_AmbientIntensity: 2.31
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
   m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
-  m_HaloStrength: 0.5
+  m_HaloStrength: 0.42
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
   m_HaloTexture: {fileID: 10300, guid: 0000000000000000f000000000000000, type: 0}
@@ -37,7 +37,7 @@ RenderSettings:
   m_ReflectionBounces: 1
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
-  m_Sun: {fileID: 0}
+  m_Sun: {fileID: 2066902871}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -279,7 +279,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9517c9b293dfec24caa0280014f06473, type: 2}
+  - {fileID: 2100000, guid: 2e251e466a9c7414c8878b01f1668e89, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -369,7 +369,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9517c9b293dfec24caa0280014f06473, type: 2}
+  - {fileID: 2100000, guid: 2e251e466a9c7414c8878b01f1668e89, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -526,6 +526,7 @@ GameObject:
   - component: {fileID: 330585545}
   - component: {fileID: 330585544}
   - component: {fileID: 330585547}
+  - component: {fileID: 330585548}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -600,12 +601,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.000012516975, y: 3.1900024, z: -13.750116}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.33, z: -10.19}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1941038811}
+  m_Father: {fileID: 2090817609}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &330585547
 MonoBehaviour:
@@ -651,6 +652,15 @@ MonoBehaviour:
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
   m_Version: 2
+--- !u!45 &330585548
+Skybox:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 330585543}
+  m_Enabled: 1
+  m_CustomSkybox: {fileID: 2100000, guid: 5396782aa7283aa4dba9a78ed4783557, type: 2}
 --- !u!1 &464381310
 GameObject:
   m_ObjectHideFlags: 0
@@ -847,7 +857,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9517c9b293dfec24caa0280014f06473, type: 2}
+  - {fileID: 2100000, guid: 2e251e466a9c7414c8878b01f1668e89, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -937,7 +947,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9517c9b293dfec24caa0280014f06473, type: 2}
+  - {fileID: 2100000, guid: 2e251e466a9c7414c8878b01f1668e89, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1058,7 +1068,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9517c9b293dfec24caa0280014f06473, type: 2}
+  - {fileID: 2100000, guid: 2e251e466a9c7414c8878b01f1668e89, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1197,7 +1207,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9517c9b293dfec24caa0280014f06473, type: 2}
+  - {fileID: 2100000, guid: 2e251e466a9c7414c8878b01f1668e89, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1376,7 +1386,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: f6cbb0ec47da2bb48851f7d827f3d8f4, type: 2}
+  - {fileID: 2100000, guid: 97e5ecaebb6e2094eb50baf1caa61ec4, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1418,7 +1428,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1000, y: 1, z: 1000}
+  m_LocalScale: {x: 10000, y: 1, z: 10000}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -1513,7 +1523,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9517c9b293dfec24caa0280014f06473, type: 2}
+  - {fileID: 2100000, guid: 2e251e466a9c7414c8878b01f1668e89, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1762,7 +1772,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9517c9b293dfec24caa0280014f06473, type: 2}
+  - {fileID: 2100000, guid: 2e251e466a9c7414c8878b01f1668e89, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1852,7 +1862,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9517c9b293dfec24caa0280014f06473, type: 2}
+  - {fileID: 2100000, guid: 2e251e466a9c7414c8878b01f1668e89, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2101,7 +2111,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9517c9b293dfec24caa0280014f06473, type: 2}
+  - {fileID: 2100000, guid: 2e251e466a9c7414c8878b01f1668e89, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2191,7 +2201,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9517c9b293dfec24caa0280014f06473, type: 2}
+  - {fileID: 2100000, guid: 2e251e466a9c7414c8878b01f1668e89, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2281,7 +2291,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9517c9b293dfec24caa0280014f06473, type: 2}
+  - {fileID: 2100000, guid: 2e251e466a9c7414c8878b01f1668e89, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2371,7 +2381,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9517c9b293dfec24caa0280014f06473, type: 2}
+  - {fileID: 2100000, guid: 2e251e466a9c7414c8878b01f1668e89, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2461,7 +2471,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9517c9b293dfec24caa0280014f06473, type: 2}
+  - {fileID: 2100000, guid: 2e251e466a9c7414c8878b01f1668e89, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2515,7 +2525,7 @@ GameObject:
   m_Icon: {fileID: 7250588514170254948, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1941038803
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2886,7 +2896,6 @@ Transform:
   m_Children:
   - {fileID: 475340912}
   - {fileID: 2145731850}
-  - {fileID: 330585546}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 452.537, z: 0}
 --- !u!1 &1965193637
@@ -2947,7 +2956,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9517c9b293dfec24caa0280014f06473, type: 2}
+  - {fileID: 2100000, guid: 2e251e466a9c7414c8878b01f1668e89, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3037,7 +3046,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9517c9b293dfec24caa0280014f06473, type: 2}
+  - {fileID: 2100000, guid: 2e251e466a9c7414c8878b01f1668e89, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3127,7 +3136,7 @@ Light:
   serializedVersion: 13
   m_Type: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 1
+  m_Intensity: 5
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -3206,12 +3215,16 @@ GameObject:
   m_Component:
   - component: {fileID: 2090817609}
   - component: {fileID: 2090817611}
-  - component: {fileID: 2090817610}
   - component: {fileID: 2090817612}
-  - component: {fileID: 2090817613}
-  - component: {fileID: 2090817614}
-  - component: {fileID: 2090817615}
+  - component: {fileID: 2090817619}
+  - component: {fileID: 2090817618}
+  - component: {fileID: 2090817617}
   - component: {fileID: 2090817616}
+  - component: {fileID: 2090817615}
+  - component: {fileID: 2090817614}
+  - component: {fileID: 2090817613}
+  - component: {fileID: 2090817621}
+  - component: {fileID: 2090817620}
   m_Layer: 0
   m_Name: Jet
   m_TagString: Player
@@ -3227,189 +3240,16 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2090817608}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0.70740896, z: -0, w: -0.70680445}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 13.54, y: 157, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 543450653150260623}
   - {fileID: 586104214}
+  - {fileID: 330585546}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 450.049, z: 0}
---- !u!114 &2090817610
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2090817608}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 804870bc593d0014e977cb30f8ce60e8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Plane.PlaneController
-  rb: {fileID: 2090817611}
-  yawPID:
-    Kp: 1
-    Ki: 0.05
-    Kd: 0.025
-    integralMin: -1
-    integralMax: 1
-    minValue: -5
-    maxValue: 5
-  pitchPID:
-    Kp: 10
-    Ki: 0.5
-    Kd: 0.25
-    integralMin: -1
-    integralMax: 1
-    minValue: -5000
-    maxValue: 5000
-  rollPID:
-    Kp: 5
-    Ki: 5
-    Kd: 0.01
-    integralMin: -25
-    integralMax: 25
-    minValue: -500
-    maxValue: 500
-  pitchLimit: 0
-  planeVelocity: {x: -1681.7485, y: -41.15273, z: -39.046585}
-  relativePlaneVelocity: {x: -7.4432487, y: 69.570656, z: 1681.25}
-  relativePitchVelocityPrev: 0
-  previousVelocity: {x: 0, y: 0, z: 0}
-  thrust: {x: 0, y: 0, z: 0}
-  maxThrust: {x: 0, y: 0, z: 0}
-  previousThrottle: 0
-  pitchAcceleration: 0
-  CoefOfDrag: 500
-  dragCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 25
-      value: 0.25
-      inSlope: 0.0006517777
-      outSlope: 0.0006517777
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 30.479462
-      value: 0.2535714
-      inSlope: 0.0006517777
-      outSlope: 0.0006517777
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  CoefOfIDrag: 500
-  inducedDrag:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 200
-      value: 0.5
-      inSlope: -0.0016333334
-      outSlope: -0.0016333334
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 500
-      value: 0.01
-      inSlope: -0.0016333334
-      outSlope: -0.0016333334
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  liftCoef: 120
-  aoaCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: -90
-      value: 0
-      inSlope: 0.005524862
-      outSlope: 0.005524862
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.5
-      value: 0.5
-      inSlope: 0.005555727
-      outSlope: 0.005555727
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 90
-      value: 1
-      inSlope: 0.005586592
-      outSlope: 0.005586592
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  aoaYawCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: -90.176125
-      value: 1
-      inSlope: -0.0055141305
-      outSlope: -0.0055141305
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.5
-      value: 0.5
-      inSlope: -0.004433043
-      outSlope: -0.004433043
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 90
-      value: 0.2
-      inSlope: -0.0033519554
-      outSlope: -0.0033519554
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  totalThrust: 35
-  throttleSpeed: 0.07
-  thrustRatio: 1.2
-  currentThrottle: 1
-  pitchStrength: 15
-  pitchRate: 25
-  pitchInputStrength: 50
-  yawStrength: 0.1
-  rollInputStrength: 450
-  rollStrength: 45
-  yawInputStrength: 45
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &2090817611
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3467,13 +3307,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 2090817608}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 75e9acf5efba86f49a9627cafd5b723a, type: 3}
+  m_Script: {fileID: 11500000, guid: b43579503e418a842a9d60d2cbc4a36b, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerControls
+  m_EditorClassIdentifier: Assembly-CSharp::Player.PlayerThrottle
   inputActions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
-  planeController: {fileID: 2090817610}
-  missiles: {fileID: 2090817614}
-  gunCannon: {fileID: 2090817615}
+  throttleAxisName: Throttle
+  throttle: {fileID: 2090817618}
 --- !u!114 &2090817614
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3483,35 +3322,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 2090817608}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0dcbfee7e01bb034cb2734d2f7e94abb, type: 3}
+  m_Script: {fileID: 11500000, guid: 388600ae4f4a7b249a56c89c14eac58e, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Launcher
-  hardPoint:
-  - hasFired: 0
-    canFire: 0
-    launchSpeed: 20
-    offset: {x: -15, y: -30, z: -40}
-    plane: {fileID: 2090817609}
-    hostPlane: {fileID: 2090817610}
-    missilePrefab: {fileID: 5205577947370265441, guid: a5f0a6f8bec0a7f4a9f19346dfe06070, type: 3}
-    target: {fileID: 1299321455}
-  - hasFired: 0
-    canFire: 0
-    launchSpeed: 20
-    offset: {x: -20, y: -30, z: -40}
-    plane: {fileID: 2090817609}
-    hostPlane: {fileID: 2090817610}
-    missilePrefab: {fileID: 5205577947370265441, guid: a5f0a6f8bec0a7f4a9f19346dfe06070, type: 3}
-    target: {fileID: 1299321455}
-  - hasFired: 0
-    canFire: 0
-    launchSpeed: 20
-    offset: {x: -20, y: -30, z: -40}
-    plane: {fileID: 2090817609}
-    hostPlane: {fileID: 2090817610}
-    missilePrefab: {fileID: 5205577947370265441, guid: a5f0a6f8bec0a7f4a9f19346dfe06070, type: 3}
-    target: {fileID: 1299321455}
-  target: {fileID: 0}
+  m_EditorClassIdentifier: Assembly-CSharp::Player.PlayerAxisControl
+  controlRate: 5
+  axis: {x: 1, y: 0, z: 0}
+  controlSurface: {fileID: 2090817617}
+  axisGovernor:
+    Kp: 10
+    Ki: 0.5
+    Kd: 0.25
+    integralMin: -1
+    integralMax: 1
+    minValue: -5000
+    maxValue: 5000
+  inputAxisName: PitchRoll
+  inputActions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
 --- !u!114 &2090817615
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3521,13 +3347,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 2090817608}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4ad60bae489b1e34d8115edfbbf9a119, type: 3}
+  m_Script: {fileID: 11500000, guid: 5530b3b0006d66e4796be3dee2ddead0, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::GunCannon
-  fireRate: 0
-  bulletsPerSecond: 20000
-  bulletPrefab: {fileID: 5776865321224483453, guid: f5f802d7d14040446a8e40660241e8fb, type: 3}
-  muzzleOffset: {fileID: 586104214}
+  m_EditorClassIdentifier: Assembly-CSharp::Plane.ControlSurface
+  controlName: Vertical Stabilizer
 --- !u!114 &2090817616
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3537,15 +3360,184 @@ MonoBehaviour:
   m_GameObject: {fileID: 2090817608}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba16efd408e92ab47b0dd0f8dca3b60f, type: 3}
+  m_Script: {fileID: 11500000, guid: 5530b3b0006d66e4796be3dee2ddead0, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Target
-  cameraCanvas: {fileID: 55550379}
-  player: {fileID: 2090817609}
-  targetDiamondBox: {fileID: 102899298951471655, guid: 23cfa2429effa3c43ae1124cd7a2d681, type: 3}
-  targetDiamondBoxInstance: {fileID: 0}
-  targetBox: {fileID: 2459638178516067519, guid: ff17418a346ab6440b92b460d7b1bc42, type: 3}
-  targetBoxInstance: {fileID: 0}
+  m_EditorClassIdentifier: Assembly-CSharp::Plane.ControlSurface
+  controlName: Ailerons
+--- !u!114 &2090817617
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2090817608}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5530b3b0006d66e4796be3dee2ddead0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Plane.ControlSurface
+  controlName: Elevator
+--- !u!114 &2090817618
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2090817608}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bca53513b3d34a449db487992686321, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Plane.Throttle
+  thrustRatio: 1.2
+  totalThrust: 200
+  throttleSpeed: 0.07
+--- !u!114 &2090817619
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2090817608}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff48b578c4179d54fbacf7d417e142f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Plane.Aerodynamics
+  liftCoef: 120
+  inducedDragCoef: 500
+  dragCoef: 500
+  aoaCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: -90
+      value: 0
+      inSlope: 0.005524862
+      outSlope: 0.005524862
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.5
+      value: 0.5
+      inSlope: 0.005555727
+      outSlope: 0.005555727
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 90
+      value: 1
+      inSlope: 0.005586592
+      outSlope: 0.005586592
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  dragCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 25
+      value: 0.25
+      inSlope: 0.0006517777
+      outSlope: 0.0006517777
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 30.479462
+      value: 0.2535714
+      inSlope: 0.0006517777
+      outSlope: 0.0006517777
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  inducedDragCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 200
+      value: 0.5
+      inSlope: -0.0016333334
+      outSlope: -0.0016333334
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 500
+      value: 0.01
+      inSlope: -0.0016333334
+      outSlope: -0.0016333334
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!114 &2090817620
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2090817608}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 388600ae4f4a7b249a56c89c14eac58e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Player.PlayerAxisControl
+  controlRate: 25
+  axis: {x: 0, y: 0, z: 1}
+  controlSurface: {fileID: 2090817617}
+  axisGovernor:
+    Kp: 5
+    Ki: 5
+    Kd: 0.01
+    integralMin: -2
+    integralMax: 2
+    minValue: -100
+    maxValue: 100
+  inputAxisName: PitchRoll
+  inputActions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+--- !u!114 &2090817621
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2090817608}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 388600ae4f4a7b249a56c89c14eac58e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Player.PlayerAxisControl
+  controlRate: 15
+  axis: {x: 0, y: 1, z: 0}
+  controlSurface: {fileID: 2090817617}
+  axisGovernor:
+    Kp: 1
+    Ki: 0.05
+    Kd: 0.025
+    integralMin: -1
+    integralMax: 1
+    minValue: -5
+    maxValue: 5
+  inputAxisName: Yaw
+  inputActions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
 --- !u!1 &2145731849
 GameObject:
   m_ObjectHideFlags: 0
@@ -3754,7 +3746,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9517c9b293dfec24caa0280014f06473, type: 2}
+  - {fileID: 2100000, guid: 2e251e466a9c7414c8878b01f1668e89, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3803,7 +3795,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9517c9b293dfec24caa0280014f06473, type: 2}
+  - {fileID: 2100000, guid: 2e251e466a9c7414c8878b01f1668e89, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3908,7 +3900,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9517c9b293dfec24caa0280014f06473, type: 2}
+  - {fileID: 2100000, guid: 2e251e466a9c7414c8878b01f1668e89, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3999,7 +3991,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9517c9b293dfec24caa0280014f06473, type: 2}
+  - {fileID: 2100000, guid: 2e251e466a9c7414c8878b01f1668e89, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4066,7 +4058,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9517c9b293dfec24caa0280014f06473, type: 2}
+  - {fileID: 2100000, guid: 2e251e466a9c7414c8878b01f1668e89, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4115,7 +4107,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9517c9b293dfec24caa0280014f06473, type: 2}
+  - {fileID: 2100000, guid: 2e251e466a9c7414c8878b01f1668e89, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4187,7 +4179,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9517c9b293dfec24caa0280014f06473, type: 2}
+  - {fileID: 2100000, guid: 2e251e466a9c7414c8878b01f1668e89, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4277,7 +4269,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9517c9b293dfec24caa0280014f06473, type: 2}
+  - {fileID: 2100000, guid: 2e251e466a9c7414c8878b01f1668e89, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4326,7 +4318,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9517c9b293dfec24caa0280014f06473, type: 2}
+  - {fileID: 2100000, guid: 2e251e466a9c7414c8878b01f1668e89, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4393,7 +4385,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9517c9b293dfec24caa0280014f06473, type: 2}
+  - {fileID: 2100000, guid: 2e251e466a9c7414c8878b01f1668e89, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4531,7 +4523,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9517c9b293dfec24caa0280014f06473, type: 2}
+  - {fileID: 2100000, guid: 2e251e466a9c7414c8878b01f1668e89, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4628,7 +4620,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9517c9b293dfec24caa0280014f06473, type: 2}
+  - {fileID: 2100000, guid: 2e251e466a9c7414c8878b01f1668e89, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4685,7 +4677,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9517c9b293dfec24caa0280014f06473, type: 2}
+  - {fileID: 2100000, guid: 2e251e466a9c7414c8878b01f1668e89, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4803,7 +4795,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9517c9b293dfec24caa0280014f06473, type: 2}
+  - {fileID: 2100000, guid: 2e251e466a9c7414c8878b01f1668e89, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4898,7 +4890,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9517c9b293dfec24caa0280014f06473, type: 2}
+  - {fileID: 2100000, guid: 2e251e466a9c7414c8878b01f1668e89, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5014,7 +5006,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9517c9b293dfec24caa0280014f06473, type: 2}
+  - {fileID: 2100000, guid: 2e251e466a9c7414c8878b01f1668e89, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

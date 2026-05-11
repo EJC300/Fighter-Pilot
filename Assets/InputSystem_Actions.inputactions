@@ -535,7 +535,7 @@
                     "name": "Yaw",
                     "type": "Value",
                     "id": "827c440c-6ea6-4096-9d60-43427d7547f7",
-                    "expectedControlType": "",
+                    "expectedControlType": "Axis",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
@@ -599,7 +599,7 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "negative",
+                    "name": "Negative",
                     "id": "44474232-e582-47be-be2d-c840ed194a4b",
                     "path": "<Gamepad>/leftTrigger",
                     "interactions": "",
@@ -610,7 +610,7 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "positive",
+                    "name": "Positive",
                     "id": "bb49ff13-64d1-4d0b-9d02-1fa4d47727fe",
                     "path": "<Gamepad>/rightTrigger",
                     "interactions": "",
