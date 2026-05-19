@@ -5,6 +5,10 @@ namespace Plane
     [RequireComponent(typeof(Rigidbody))]
     public class Aerodynamics : MonoBehaviour
     {
+
+        //May Switch from curves to a more fixed calculation 
+
+        //TODO Plane needs to yaw a towards the gravity 
         private Rigidbody rb { get { return GetComponent<Rigidbody>(); } }
         public float liftCoef;
         public float inducedDragCoef;
@@ -29,11 +33,22 @@ namespace Plane
             ApplyLift();
             if (relativeVelocity.z > 5)
             {
+                YawEffect();
                 rb.linearVelocity = rb.linearVelocity * WorldSettings.speedScale;
                 rb.angularVelocity = rb.angularVelocity * WorldSettings.turnScale;
+
             }
         }
 
+        //Really should be gravity acceleration but nah
+        private void YawEffect()
+        {
+            float bankAngle = Vector3.Dot(transform.right, Vector3.down);
+            float dropInfluence = (bankAngle/ relativeVelocity.magnitude) * (liftCoef * liftCoef) * Time.fixedDeltaTime;
+            
+            MathHelpers.TorqueByRate(dropInfluence, Vector3.up, rb);
+
+        }
         private void ApplyLift()
         {
             float lift = MathHelpers.CalculateLiftOnWings(liftCoef, relativeVelocity, aoaCurve);

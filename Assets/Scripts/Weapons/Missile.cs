@@ -88,7 +88,7 @@ public class Missile : MonoBehaviour
 
             Vector3 targetVector = LOSrate * (NavigationRate * Mathf.Abs(Noise())) * 2;
 
-            TargetVector = targetVector;
+            TargetVector =  targetVector;
         }
     }
 

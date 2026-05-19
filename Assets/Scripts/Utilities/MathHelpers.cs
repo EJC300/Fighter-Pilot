@@ -9,9 +9,9 @@ namespace Utilities
             if (Mathf.Abs(rate) < 0) return;
             Vector3 target = rate * axis;
             Vector3 current = Vector3.Dot(axis, rb.transform.InverseTransformDirection(rb.angularVelocity)) * axis;
-            Vector3 error = target;
+            Vector3 error = target - current;
 
-            rb.AddRelativeTorque(target * rb.mass);
+            rb.AddRelativeTorque(error * rb.mass);
 
         }
 
@@ -60,6 +60,12 @@ namespace Utilities
             rb.AddRelativeForce(inducedDrag * -relativeVelocity.normalized);
 
 
+        }
+
+        public static Vector3 GetVectorRelativeFacingDirection(Vector3 axis, Vector3 position )
+        {
+            Quaternion lookDirection = Quaternion.LookRotation((axis));
+            return lookDirection * axis;
         }
     }
 }

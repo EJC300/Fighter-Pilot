@@ -1,0 +1,38 @@
+using UnityEngine;
+using Utilities;
+
+namespace Plane
+{
+    [RequireComponent(typeof(Rigidbody))]
+    public class Ailerons : MonoBehaviour
+    {
+       
+        private Rigidbody rb { get { return GetComponent<Rigidbody>(); } }
+        public float controlRate;
+        public void ApplyAilerons(float input, Vector3 relativePlaneVelocity, float angularRate)
+        {
+            if (rb == null) return;
+            Vector3 velocity = relativePlaneVelocity;
+
+
+
+
+            float pressure = 0.5f * velocity.sqrMagnitude;
+
+            float pitchError = (input) - angularRate;
+            float controlAuthority = Mathf.Clamp01(pressure / velocity.z) * pitchError * Time.fixedDeltaTime;
+
+            if (Mathf.Abs(pressure) > 0.0f)
+            {
+
+
+
+         
+               
+                MathHelpers.TorqueByRate(controlAuthority * controlRate, Vector3.forward, rb);
+            }
+
+
+        }
+    }
+}
