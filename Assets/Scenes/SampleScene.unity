@@ -674,7 +674,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a5ea8db5ac08a141870beb643d57479, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player.FreelLookCamera
-  distance: 15
+  camDistance: 15
+  distance: 0
   camPitchSpeed: 3
   camYawSpeed: 2
   freelookCamera: {fileID: 330585545}
@@ -3862,7 +3863,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 042ab90d490f5274f9ebcee263b366cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Plane.Elevator
-  controlRate: 200
+  controlRate: 100
 --- !u!114 &2090817621
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3875,7 +3876,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72b4e5976f910b545b6b0aa32bc7d883, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Plane.Ailerons
-  controlRate: 800
+  controlRate: 400
 --- !u!114 &2090817622
 MonoBehaviour:
   m_ObjectHideFlags: 0

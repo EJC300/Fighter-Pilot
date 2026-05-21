@@ -15,10 +15,10 @@ namespace Plane
             Vector3 velocity = relativePlaneVelocity;
 
 
-            float pressure = 0.5f * velocity.sqrMagnitude;
+            float pressure = 0.5f * relativePlaneVelocity.sqrMagnitude;
 
-            float pitchError = (input) - angularRate;
-            float controlAuthority = Mathf.Clamp01(pressure / velocity.z) * pitchError * Time.fixedDeltaTime;
+            float pitchError = ((input) - angularRate) * Time.fixedDeltaTime;
+            float controlAuthority = Mathf.Clamp01(pressure / relativePlaneVelocity. z) * pitchError;
             if (Mathf.Abs(pressure) > 0.0f)
             {
 
