@@ -19,6 +19,7 @@ namespace Plane
         private Vector3 planeVelocity;
         private Vector3 relativeVelocity;
 
+        public Vector3 RelativeVelocity { get { return relativeVelocity; } }
 
         private void FixedUpdate()
         {
@@ -40,11 +41,11 @@ namespace Plane
             }
         }
 
-        //Really should be gravity acceleration but nah
+
         private void YawEffect()
         {
-            float bankAngle = Vector3.Dot(transform.right, Vector3.down);
-            float dropInfluence = (bankAngle/ relativeVelocity.magnitude) * (liftCoef * liftCoef) * Time.fixedDeltaTime;
+            float bankAngle = Vector3.Dot(transform.right,Physics.gravity.normalized);
+            float dropInfluence = (bankAngle/ relativeVelocity.z) * (liftCoef * liftCoef) * Time.fixedDeltaTime;
             
             MathHelpers.TorqueByRate(dropInfluence, Vector3.up, rb);
 

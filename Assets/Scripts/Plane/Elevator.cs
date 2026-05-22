@@ -18,7 +18,8 @@ namespace Plane
             float pressure = 0.5f * relativePlaneVelocity.sqrMagnitude;
 
             float pitchError = ((input) - angularRate) * Time.fixedDeltaTime;
-            float controlAuthority = Mathf.Clamp01(pressure / relativePlaneVelocity. z) * pitchError;
+            float controlAuthority = Mathf.Clamp01(pressure / relativePlaneVelocity. z) * controlRate * pitchError;
+            Debug.Log(controlAuthority);
             if (Mathf.Abs(pressure) > 0.0f)
             {
 
@@ -26,7 +27,7 @@ namespace Plane
 
        
 
-                MathHelpers.TorqueByRate(controlAuthority * controlRate, Vector3.right, rb);
+                MathHelpers.TorqueByRate(controlAuthority, Vector3.right, rb);
             }
        
 
