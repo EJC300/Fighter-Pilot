@@ -19,7 +19,7 @@ namespace UI
             //Calculate world position based on forward velocity, max reticle distance and upward velocity
             Vector3 worldPosition = aerodynamics.transform.rotation *aerodynamics.transform.InverseTransformDirection (forwardVelocityDirection.normalized) * maxDistance;
          
-            Vector3 screenToWorld = Camera.main.WorldToScreenPoint(worldPosition);
+            
             transform.localPosition = worldPosition;
 
         }

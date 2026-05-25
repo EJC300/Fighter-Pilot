@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Rendering;
 namespace Utilities
 {
     public class MathHelpers
@@ -15,6 +16,57 @@ namespace Utilities
 
         }
 
+        public static float WrapDegrees(float pos)
+        {
+            float degree = pos;
+            if(pos > 189)
+            {
+                degree -= 360;
+            }
+            else if(pos < -180)
+            {
+                degree += 360;
+            }
+            return degree;
+        }
+        public static float WrapFloat(float pos,float min,float max)
+        {
+            float value = pos;
+            if (pos > min)
+            {
+                value -= max;
+            }
+            else if (pos < -min)
+            {
+                value += min; ;
+            }
+            return value;
+        }
+        public static string SetDirectionMark(float pos,ref float value)
+        {
+            float degree = pos;
+
+            if(degree == 0) 
+            {
+                return "N";
+            }
+            else if(degree == 270)
+            {
+                return "W";
+            }
+            else if(degree == 180)
+            {
+                return "S";
+            
+            }
+            else if(degree == 90)
+            {
+                return "E";
+            }
+            return pos.ToString();
+        }
+        
+      
         public static float CalculateEnergyLimit(Rigidbody rb,Vector3 relativePlaneVelocity, ref Vector3 previousVelocity)
         {
             float acceleration = relativePlaneVelocity.magnitude;
