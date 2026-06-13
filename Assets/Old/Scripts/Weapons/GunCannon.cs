@@ -22,9 +22,9 @@ public class GunCannon : MonoBehaviour
         if (Time.time >= nextFire)
         {       
                 
-          
+      
                 nextFire = Time.time + fireRate;
-               Instantiate(bulletPrefab,muzzleOffset.position,transform.rotation);
+            Instantiate(bulletPrefab, muzzleOffset.position,muzzleOffset.parent.rotation);
         }
 
 

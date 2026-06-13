@@ -104,7 +104,7 @@ public class JetCompass : MonoBehaviour
     {
         // How many pixels the whole tape has shifted due to heading
         float headingOffset = yAngle * _pixelsPerDegree;
-
+       
         for (int i = 0; i < labelPool.Count; i++)
         {
             LabelRect label = labelPool[i];
@@ -128,6 +128,7 @@ public class JetCompass : MonoBehaviour
 
             Vector2 pos = label.rect.anchoredPosition;
             pos.x = x;
+            
             label.rect.anchoredPosition = pos;
             labelPool[i] = label;
         }

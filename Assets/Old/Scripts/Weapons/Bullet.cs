@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using Plane;
 public class Bullet : MonoBehaviour
 {
     //I am not aerodynamically simulated.
@@ -22,7 +22,7 @@ public class Bullet : MonoBehaviour
 
     void Fly()
     {
-        rb.AddRelativeForce(Vector3.forward * maxSpeed, ForceMode.Acceleration);
+        rb.AddRelativeForce(transform.forward * maxSpeed, ForceMode.Acceleration);
 
         rb.maxLinearVelocity = Mathf.Max(rb.maxLinearVelocity, maxSpeed);
     }
@@ -34,8 +34,15 @@ public class Bullet : MonoBehaviour
 
             if (Physics.SphereCast(hit.point, blastRadius, transform.forward, out hit))
             {
-                //Apply Damage
-                Debug.Log("BOOM");
+          
+                if (hit.collider.transform.GetComponentInChildren<Health>() && hit.collider.transform != this.transform)
+                {
+                   //Apply Damage
+                }
+                else if (hit.collider.transform != this.transform)
+                {
+                    Debug.Log("BOOM");
+                }
             }
 
           
@@ -49,12 +56,14 @@ public class Bullet : MonoBehaviour
             
         
     }
+
     private void FixedUpdate()
     {
-        Fly();
+
     }
     private void Update()
     {
+        Fly();
         ImpactAndDetonate();
         DieOnEndOFLife();
     }

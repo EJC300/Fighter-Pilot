@@ -177,7 +177,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 1
+  m_PresetInfoIsWorld: 0
 --- !u!223 &55550379
 Canvas:
   m_ObjectHideFlags: 0
@@ -1006,6 +1006,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 586104214}
+  - component: {fileID: 586104215}
   m_Layer: 0
   m_Name: GunMuzzleOffset
   m_TagString: Untagged
@@ -1022,12 +1023,28 @@ Transform:
   m_GameObject: {fileID: 586104213}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.57, y: -0.05, z: 10.87}
+  m_LocalPosition: {x: 1.57, y: -0.05, z: 11.98}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2090817609}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &586104215
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 586104213}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ad60bae489b1e34d8115edfbbf9a119, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GunCannon
+  fireRate: 0
+  bulletsPerSecond: 25000
+  bulletPrefab: {fileID: 5776865321224483453, guid: f5f802d7d14040446a8e40660241e8fb, type: 3}
+  muzzleOffset: {fileID: 586104214}
 --- !u!1 &598983387
 GameObject:
   m_ObjectHideFlags: 0
@@ -1040,6 +1057,7 @@ GameObject:
   - component: {fileID: 598983390}
   - component: {fileID: 598983389}
   - component: {fileID: 598983391}
+  - component: {fileID: 598983392}
   m_Layer: 5
   m_Name: Flight Path
   m_TagString: Untagged
@@ -1073,7 +1091,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 598983387}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -1111,7 +1129,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 598983387}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 21beef819d7d31f40ad0bfcf5a5876cb, type: 3}
   m_Name: 
@@ -1119,6 +1137,24 @@ MonoBehaviour:
   canvas: {fileID: 55550379}
   aerodynamics: {fileID: 2090817619}
   maxDistance: 200
+--- !u!114 &598983392
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 598983387}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ade8c7b35fbbcc54a95b516f9a4b27ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WorldSpaceFix
+  playerTarget: {fileID: 2090817609}
+  mainCamera: {fileID: 928117036}
+  canvasGroup: {fileID: 0}
+  worldOffset: {x: 0, y: 2, z: 0}
+  screenMargin: 0.05
+  offScreenAlpha: 0.5
 --- !u!1 &741286269
 GameObject:
   m_ObjectHideFlags: 0
@@ -2447,6 +2483,7 @@ Transform:
   m_Children:
   - {fileID: 330585546}
   - {fileID: 928117032}
+  - {fileID: 1949939550}
   m_Father: {fileID: 2090817609}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1506767590
@@ -2553,7 +2590,7 @@ Canvas:
   m_GameObject: {fileID: 1564231461}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
@@ -3347,12 +3384,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1949939549}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2090817609}
+  m_Father: {fileID: 1506767589}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1965193637
 GameObject:
@@ -3784,6 +3821,8 @@ GameObject:
   - component: {fileID: 2090817622}
   - component: {fileID: 2090817625}
   - component: {fileID: 2090817626}
+  - component: {fileID: 2090817628}
+  - component: {fileID: 2090817627}
   m_Layer: 0
   m_Name: Jet
   m_TagString: Player
@@ -3799,18 +3838,17 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2090817608}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: 0.77591544, z: -0, w: 0.63083696}
   m_LocalPosition: {x: 13.54, y: 157, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 543450653150260623}
   - {fileID: 586104214}
-  - {fileID: 1949939550}
   - {fileID: 1506767589}
   - {fileID: 1564231462}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 101.776, z: 0}
 --- !u!54 &2090817611
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -4069,6 +4107,36 @@ MonoBehaviour:
   playerRudder: {fileID: 2090817624}
   inputAxisName: Yaw
   inputActions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+--- !u!114 &2090817627
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2090817608}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f7843aa68cd55a41a4d82c500f168fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Player.PlayerWeapons
+  cannon: {fileID: 586104215}
+  inputActions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  inputAxisName: FireCannon
+--- !u!114 &2090817628
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2090817608}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aeb117137c6ef7b4f9394aeff87cd926, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Plane.Health
+  model: {fileID: 543450653150260623}
+  huskPrefab: {fileID: 0}
+  maxHealth: 1500
 --- !u!1 &2145731849
 GameObject:
   m_ObjectHideFlags: 0

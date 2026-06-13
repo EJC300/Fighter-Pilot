@@ -44,11 +44,13 @@ namespace Plane
 
         private void YawEffect()
         {
-            float bankAngle = Vector3.Dot(transform.right,Physics.gravity.normalized);
-            float dropInfluence = (bankAngle/ relativeVelocity.z) * (liftCoef * liftCoef) * Time.fixedDeltaTime;
-            
-            MathHelpers.TorqueByRate(dropInfluence, Vector3.up, rb);
+            if (relativeVelocity.z > 5)
+            {
+                float bankAngle = Vector3.Dot(transform.right, Physics.gravity.normalized);
+                float dropInfluence = (bankAngle / relativeVelocity.z) * (liftCoef * liftCoef) * Time.fixedDeltaTime;
 
+                MathHelpers.TorqueByRate(dropInfluence, Vector3.up, rb);
+            }
         }
         private void ApplyLift()
         {
