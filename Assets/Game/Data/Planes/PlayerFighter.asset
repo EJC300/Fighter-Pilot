@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 787efef9d4a68564d99606de3c22e9da, type: 3}
+  m_Name: PlayerFighter
+  m_EditorClassIdentifier: Assembly-CSharp::Data.Jet
+  controlType: 0
+  aoaCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  dragCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  inducedDragCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  JetModelName: JetModel
+  JetColliderModelName: 
+  totalThrust: 0
+  throttleSpeed: 0
+  thrustRatio: 0
+  currentThrottle: 0
+  minSpeed: 0
+  stallSpeed: 0
+  mass: 0
+  pitchRate: 0
+  rollRate: 0
+  yawRate: 0
+  liftCoef: 0
+  inducedDragCoef: 0
+  dragCoef: 0

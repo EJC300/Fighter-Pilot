@@ -6,8 +6,18 @@ namespace Model
     public class JetFactory : MonoBehaviour
     {
        [SerializeField] Jet jet;
+        [SerializeField] string factoryName;
         //Maybe the jet should have a unique ID so it can be sorted? But probably not there is a max of 10 jets per level
         //Factories create jets then spawn them the jet then registers with the level registry
+
+        public void Start()
+        {
+            JetFactoryMaster.instanace.RegisterSpawnPoint(factoryName);
+        }
+        public void OnDisable()
+        {
+            JetFactoryMaster.instanace.DeRegisterSpawnPoint(factoryName);
+        }
         public void CreateJet(Vector3 spawnPosition)
         {
             GameObject product = new GameObject();
