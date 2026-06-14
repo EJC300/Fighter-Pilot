@@ -7,7 +7,7 @@ public class JetSpawner : MonoBehaviour
     private void Start()
     {
     
-        jet.CreateJetAsset(transform.position, transform.rotation);
+        
          
     }
  
