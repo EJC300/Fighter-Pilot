@@ -1,6 +1,8 @@
 using UnityEngine;
 namespace Behavior
 {
+
+ 
     public class JetBrain 
     {
 
@@ -9,14 +11,10 @@ namespace Behavior
          * or AI Input from a jet maneuvers thing or player jet information
          * 
          */
+        public JetEntity jetEntity;
         public virtual void ControlJetFlightSurfaces()
         {
-
-        }
-
-        public virtual void ControlThrottle()
-        {
-
+           
         }
         public virtual void SelectWeapon()
         {

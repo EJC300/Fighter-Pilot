@@ -1,4 +1,6 @@
 using Data;
+using JetComponents;
+using Model;
 using UnityEngine;
 namespace Behavior
 {
@@ -10,7 +12,10 @@ namespace Behavior
         private FlightPhysics flightPhysics;
         private float currentThrottle;
         private Rigidbody rb;
+        private JetPlayerCamera jetPlayerCamera;
         //Jet brain
+        
+        JetBrain jetPilot;
         public void Setup(Jet jet,Vector3 spawnPosition)
         {
             if (flightPhysics == null)
@@ -19,6 +24,9 @@ namespace Behavior
             }
             this.jet = jet;
             rb = gameObject.AddComponent<Rigidbody>();
+            var model = Resources.Load<GameObject>(jet.JetModelName);
+            var modelToLoad = Instantiate(model,transform);
+
             this.jet.aoaCurve = jet.aoaCurve;
             this.jet.dragCurve = jet.dragCurve;
             this.jet.inducedDragCurve = jet.inducedDragCurve;
@@ -36,8 +44,20 @@ namespace Behavior
             this.jet.rollRate = jet.rollRate;
             this.jet.yawRate = jet.yawRate;
             //Register Jet to the Registry
-           
-            transform.position = spawnPosition;
+            if (Jet.controlType == ControlType.Player)
+            {
+                LevelRegistry.instance.RegisterPlayer(this);
+                //instance the jetPlayerCamera don't worry it will find the player
+                
+               jetPlayerCamera = Instantiate(this.jet.jetCameraPrefab).GetComponent<JetPlayerCamera>();
+               jetPlayerCamera.jetTransform = this.transform;
+         
+            }
+            else
+            {
+                LevelRegistry.instance.RegisterJet(this);
+            }
+                transform.position = spawnPosition;
             
         }
         private void FixedUpdate()
@@ -51,11 +71,12 @@ namespace Behavior
         }
 
         //Jet brain controls this
-        public void ControlJet(Vector3 input,float throttle)
+        public void ControlJet(Vector3 PitchYaw,float Yaw,float throttle)
         {
-            flightPhysics.ApplyPitch(rb, input.y, jet.pitchRate, flightPhysics.RelativeVelocity);
-            flightPhysics.ApplyRoll(rb, input.x, jet.rollRate, flightPhysics.RelativeVelocity);
-            flightPhysics.ApplyYaw(rb, input.z, jet.yawRate, flightPhysics.RelativeVelocity);
+            
+            flightPhysics.ApplyPitch(rb, PitchYaw.y, jet.pitchRate, flightPhysics.RelativeVelocity);
+            flightPhysics.ApplyRoll(rb, PitchYaw.x, jet.rollRate, flightPhysics.RelativeVelocity);
+            flightPhysics.ApplyYaw(rb, Yaw, jet.yawRate, flightPhysics.RelativeVelocity);
             flightPhysics.ApplyThrottle(rb, throttle, jet.totalThrust, currentThrottle, jet.throttleSpeed, jet.thrustRatio);
 
         }

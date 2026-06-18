@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using Model;
 namespace Plane
 {
     public class OriginShifter : MonoBehaviour
@@ -10,7 +10,7 @@ namespace Plane
 
         [Header("Settings")]
         public float shiftThreshold = 1000f;
-        public Transform player;
+        private Transform player;
 
         // -------------------------------------------------------------------------
         // State
@@ -22,6 +22,18 @@ namespace Plane
         // Lifecycle
         // -------------------------------------------------------------------------
 
+        private void Start()
+        {
+            player = LevelRegistry.instance.Player.transform;
+        }
+        private void LateUpdate()
+        {
+            if (player != null)
+            {
+                player = LevelRegistry.instance.Player.transform;
+            }
+            if (player == null) return;
+        }
         private void FixedUpdate()
         {
             if (player == null) return;

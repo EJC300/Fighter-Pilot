@@ -13,36 +13,100 @@ MonoBehaviour:
   m_Name: PlayerFighter
   m_EditorClassIdentifier: Assembly-CSharp::Data.Jet
   controlType: 0
+  jetCameraPrefab: {fileID: 5164229925735542233, guid: 6a5393f77e0668a4fb53303aba25b58e, type: 3}
   aoaCurve:
     serializedVersion: 2
-    m_Curve: []
+    m_Curve:
+    - serializedVersion: 3
+      time: -90
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 90
+      value: -1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
   dragCurve:
     serializedVersion: 2
-    m_Curve: []
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 1200
+      outSlope: 1200
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 1200
+      inSlope: 1200
+      outSlope: 1200
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
   inducedDragCurve:
     serializedVersion: 2
-    m_Curve: []
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0.008333334
+      outSlope: 0.008333334
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 120
+      value: 1
+      inSlope: 0.002604167
+      outSlope: 0.002604167
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 200
+      value: 0.75
+      inSlope: -0.003125
+      outSlope: -0.003125
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
   JetModelName: JetModel
   JetColliderModelName: 
-  totalThrust: 0
-  throttleSpeed: 0
-  thrustRatio: 0
+  totalThrust: 170000
+  throttleSpeed: 0.6
+  thrustRatio: 1.2
   currentThrottle: 0
-  minSpeed: 0
-  stallSpeed: 0
-  mass: 0
-  pitchRate: 0
-  rollRate: 0
-  yawRate: 0
-  liftCoef: 0
-  inducedDragCoef: 0
-  dragCoef: 0
+  minSpeed: 200
+  stallSpeed: 100
+  mass: 25000
+  pitchRate: 15
+  rollRate: 25
+  yawRate: 15
+  liftCoef: 0.75
+  inducedDragCoef: 0.25
+  dragCoef: 0.75

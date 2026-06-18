@@ -1,16 +1,40 @@
 using UnityEngine;
-
+using Model;
 public class LevelController : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+
+    [SerializeField] JetFactoryMaster factoryMaster;
+    private bool hasPlayerSpawned;
+    [SerializeField] JetFactory playerSpawn;
+    private void Awake()
     {
-        
+      
+    }
+    private void Start()
+    {
+   
+        factoryMaster = JetFactoryMaster.instanace;
+        SetupPlayerSpawnPoint();
+    }
+    private void Update()
+    {
+        SpawnJetAtLevelStart();
+    }
+    void SetupPlayerSpawnPoint()
+    {
+      playerSpawn =  factoryMaster.GetSpawn("PlayerSpawnFactory");
+           
+    }
+    void SpawnJetAtLevelStart()
+    {
+        if (!hasPlayerSpawned)
+        {
+            playerSpawn.CreateJet(transform.position);
+            hasPlayerSpawned = true;
+        }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    //spawn ai jet waves
+
+   
 }

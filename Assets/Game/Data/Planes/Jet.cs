@@ -11,10 +11,13 @@ namespace Data
     }
    
 
+
+
     [CreateAssetMenu(fileName = "Jet", menuName = "Data/Jet")]
     public class Jet : ScriptableObject
     {
         public ControlType controlType;
+        public GameObject jetCameraPrefab; // Leave unassigned if im not a player plane
         public AnimationCurve aoaCurve;
         public AnimationCurve dragCurve;
         public AnimationCurve inducedDragCurve;
@@ -33,12 +36,10 @@ namespace Data
         public float liftCoef;
         public float inducedDragCoef;
         public float dragCoef;
- 
 
 
-   
-        
-        
+
+
     }
 
 }

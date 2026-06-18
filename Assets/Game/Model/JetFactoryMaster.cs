@@ -4,20 +4,21 @@ namespace Model
 {
     public class JetFactoryMaster : MonoBehaviour
     {
-     private Dictionary<string,JetFactory> spawns;
+     private Dictionary<string,JetFactory> spawns = new Dictionary<string, JetFactory>();
 
         public static JetFactoryMaster instanace;
 
 
-        public void Start()
+        public void Awake()
         {
             instanace = this;
         }
-        public void RegisterSpawnPoint(string name)
+        public void RegisterSpawnPoint(string name,JetFactory jetFactory)
      {
             if(!spawns.TryGetValue(name,out JetFactory value))
             {
-                spawns.Add(name,value);
+                Debug.Log(name);
+                spawns.Add(name,jetFactory);
             }
            
      }

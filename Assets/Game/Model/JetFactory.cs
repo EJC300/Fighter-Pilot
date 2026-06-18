@@ -12,7 +12,7 @@ namespace Model
 
         public void Start()
         {
-            JetFactoryMaster.instanace.RegisterSpawnPoint(factoryName);
+            JetFactoryMaster.instanace.RegisterSpawnPoint(factoryName,this);
         }
         public void OnDisable()
         {
@@ -31,11 +31,12 @@ namespace Model
             else if (jet.controlType == ControlType.Bot)
             {
                 //Add bot
-                LevelRegistry.instance.RegisterPlayer(jetEntity);
+                LevelRegistry.instance.RegisterJet(jetEntity);
             }
            
             jetEntity.Setup(jet, spawnPosition);
             GameObject createdJet = Instantiate(jetEntity.gameObject);
+          
           
         }
         

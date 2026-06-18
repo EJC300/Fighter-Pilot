@@ -4,7 +4,8 @@ using Behavior;
 public class LevelRegistry : MonoBehaviour
 {
     private List<JetEntity> jets = new();
-    private JetEntity player;
+    [SerializeField] private JetEntity player;
+    public JetEntity Player {  get { return player; } }
     public static LevelRegistry instance;
     
     private void Start()
@@ -49,5 +50,17 @@ public class LevelRegistry : MonoBehaviour
         }
     }
 
+    public JetEntity GetJet(string jetName)
+    {
+        foreach (JetEntity jet in jets)
+        {
+            if(jet.Jet.name == jetName)
+            {
+                return jet;
+            }
+
+        }
+        return null;
+    }
 
 }
